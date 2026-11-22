@@ -1,16 +1,16 @@
 {
   "date": "2026-11-22",
-  "isFirstRun": true,
+  "isFirstRun": false,
   "changed": true,
-  "newUnique": 3836,
+  "newUnique": 80,
   "added": {
-    "linarm": 2522,
-    "ganlin": 1389,
-    "aoguai": 280
+    "linarm": 64,
+    "ganlin": 13,
+    "aoguai": 12
   },
   "removed": {
-    "linarm": 0,
-    "ganlin": 0,
-    "aoguai": 0
+    "linarm": 62,
+    "ganlin": 13,
+    "aoguai": 12
   }
 }

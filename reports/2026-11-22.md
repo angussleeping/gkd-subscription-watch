@@ -1,128 +1,111 @@
 # GKD 三库订阅检测报告
 
-生成时间：2026-11-22T08:30:40.766Z
+生成时间：2026-11-22T08:31:55.870Z
 
 ## 一、订阅状态
 
 | 订阅 | ID | 版本 | 应用数 | 规则组 | 启用组 | 规则条目 |
 |---|---|---|---|---|---|---|
-| Lin-arm | 667 | 640 | 1008 | 2525 | 2521 | 3985 |
+| Lin-arm | 667 | 641 | 1009 | 2527 | 2523 | 3988 |
 | 甘霖 | 233 | 72 | 610 | 1389 | 104 | 1987 |
 | 奥怪 | 86 | 89 | 72 | 280 | 4 | 645 |
 
 ## 二、本周变化
 
-> 首次运行，已建立基线快照。下周起将报告精确的新增/删除规则。
+| 订阅 | 新增规则组 | 删除规则组 |
+|---|---|---|
+| Lin-arm | 64 | 62 |
+| 甘霖 | 13 | 13 |
+| 奥怪 | 12 | 12 |
 
 ## 三、本周新增且不重复的规则
 
-共 3836 条来自单一库的新规则（其他两库均无相同规则）：
+共 80 条来自单一库的新规则（其他两库均无相同规则）：
 
-- **Lin-arm** · 51CTO · 全屏广告-弹窗广告 `com.cto51.student`
-- **Lin-arm** · 5EPlay · 权限提示-通知权限 `com.fiveplay`
-- **Lin-arm** · 5EPlay · 局部广告-首页右下角浮窗 `com.fiveplay`
-- **Lin-arm** · 5EPlay · 更新提示 `com.fiveplay`
-- **Lin-arm** · AB DM · 功能类-自动展开各下载线程 `com.abdownloadmanager`
-- **Lin-arm** · AfuseKt · 更新提示 `com.attempt.afusekt`
-- **Lin-arm** · AlgerMusicPlayer · 开屏广告 `com.algermusic.app`
-- **Lin-arm** · APKPure · 全屏广告-热门推荐关闭 `com.apkpure.aegon`
-- **Lin-arm** · APKPure · 功能类-更新与已安装界面-点击[查看更多] `com.apkpure.aegon`
-- **Lin-arm** · APKPure · 分段广告-更新界面软件推荐 `com.apkpure.aegon`
-- **Lin-arm** · APKPure · 功能类-添加桌面快捷方式 `com.apkpure.aegon`
-- **Lin-arm** · APKPure · 全屏广告-弹窗广告 `com.apkpure.aegon`
-- **Lin-arm** · APKPure · 局部广告-悬浮广告 `com.apkpure.aegon`
-- **Lin-arm** · APKPure · 局部广告-卡片广告 `com.apkpure.aegon`
-- **Lin-arm** · APKPure · 局部广告-电报频道推广横幅 `com.apkpure.aegon`
-- **Lin-arm** · AppShare · 开屏广告 `info.muge.appshare`
-- **Lin-arm** · AppShare · 局部广告-卡片广告 `info.muge.appshare`
-- **Lin-arm** · AppShare · 功能类-自动签到 `info.muge.appshare`
-- **Lin-arm** · AppShare · 分段广告 `info.muge.appshare`
-- **Lin-arm** · AppShare · 全屏广告-弹窗广告 `info.muge.appshare`
-- **Lin-arm** · AppShare · 通知提示-公告弹窗 `info.muge.appshare`
-- **Lin-arm** · AppShare · 功能类-自动点击[使用浏览器打开] `info.muge.appshare`
-- **Lin-arm** · AppShare · 更新提示 `info.muge.appshare`
-- **Lin-arm** · AppShare · 功能类-自动进入应用更新界面 `info.muge.appshare`
-- **Lin-arm** · Authenticator · 评价提示 `com.azure.authenticator`
-- **Lin-arm** · Avmini · 开屏广告 `com.hongjing.avmini`
-- **Lin-arm** · Avmini · 全屏广告 `com.hongjing.avmini`
-- **Lin-arm** · Avmini · 局部广告 `com.hongjing.avmini`
-- **Lin-arm** · Battery Guru · 局部广告-卡片广告 `com.paget96.batteryguru`
-- **Lin-arm** · Battery Guru · 全屏广告 `com.paget96.batteryguru`
-- **Lin-arm** · bilibili · 评价提示-评论区满意度评价 `com.bilibili.app.in`
 - **Lin-arm** · bilibili · 评价提示-APP评分 `com.bilibili.app.in`
 - **Lin-arm** · bilibili · 通知提示-订阅感兴趣的通知 `com.bilibili.app.in`
-- **Lin-arm** · bilibili · 权限提示-通知权限 `com.bilibili.app.in`
-- **Lin-arm** · bilibili · 功能类-自动领取会员经验 `com.bilibili.app.in`
-- **Lin-arm** · bilibili · 功能类-自动关闭故事模式 `com.bilibili.app.in`
-- **Lin-arm** · Bitcoin Mining · 全屏广告 `bitcoin.minning.com`
-- **Lin-arm** · Blued · 局部广告-卡片广告 `com.soft.blued`
-- **Lin-arm** · Blued · 全屏广告-弹窗广告 `com.soft.blued`
-- **Lin-arm** · Blued · 全屏广告-会员活动弹窗 `com.soft.blued`
-- **Lin-arm** · Blued X · 开屏广告 `com.danlan.xiaolan`
-- **Lin-arm** · Blued X · 分段广告-卡片广告 `com.danlan.xiaolan`
-- **Lin-arm** · CamHipro · 局部广告-卡片广告 `com.hichip.campro`
-- **Lin-arm** · Canta · 其他-卸载应用后弹窗 `io.github.samolego.canta`
-- **Lin-arm** · CapCut · 功能类-取消登录弹窗 `com.lemon.lvoverseas`
-- **Lin-arm** · Cellular-Z · 更新提示 `make.more.r2d2.cellular_z`
-- **Lin-arm** · CFMOTO · 全屏广告-弹窗广告 `com.lxt.cfmoto`
-- **Lin-arm** · ChatGPT · 通知提示-充值Plus提示 `com.openai.chatgpt`
-- **Lin-arm** · ChatGPT · 功能类-ban话题提前阻断屏蔽 `com.openai.chatgpt`
-- **Lin-arm** · ChatGPT · 局部广告 `com.openai.chatgpt`
-- **Lin-arm** · ChatGPT · 通知提示-聊天记忆容量警告 `com.openai.chatgpt`
-- **Lin-arm** · ChatGPT · 功能类-自动打开联网查询 `com.openai.chatgpt`
-- **Lin-arm** · ChatGPT · 功能类-上传/发送错误自动重试 `com.openai.chatgpt`
-- **Lin-arm** · ChatGPT · 功能类-自动保存图片 `com.openai.chatgpt`
-- **Lin-arm** · Chrome · 功能类-文件可能有害-点击[仍然下载] `com.android.chrome`
-- **Lin-arm** · Cimoc · 全屏广告-弹窗广告 `com.cimoc.haleydu`
-- **Lin-arm** · Clash Meta for Android · 功能类-代理页面自动点击延迟测试 `com.github.metacubex.clash.meta`
-- **Lin-arm** · Clash Meta for Android · 功能类-自动[启动]后返回 `com.github.metacubex.clash.meta`
-- **Lin-arm** · Clock · 功能类-自动关闭闹钟提示 `com.android.BBKClock`
-- **Lin-arm** · Clousx6 · 通知提示-公告弹窗 `com.example.robortx.clousx6F`
-- **Lin-arm** · ClrvAI · 通知提示-公告弹窗 `com.panaceasoft.pswallpaper`
-- **Lin-arm** · CSDN · 更新提示 `net.csdn.csdnplus`
-- **Lin-arm** · CSDN · 分段广告-信息流广告 `net.csdn.csdnplus`
-- **Lin-arm** · CSDN · 评价提示-软件好评弹窗 `net.csdn.csdnplus`
-- **Lin-arm** · CSDN · 全屏广告-弹窗广告 `net.csdn.csdnplus`
-- **Lin-arm** · CSDN · 权限提示-通知权限 `net.csdn.csdnplus`
-- **Lin-arm** · CSDN · 分段广告-底部广告 `net.csdn.csdnplus`
-- **Lin-arm** · CTM Buddy · 全屏广告-弹窗广告 `com.ctm`
-- **Lin-arm** · CTM Buddy · 局部广告-底部横幅广告 `com.ctm`
 - **Lin-arm** · cTrader · 功能类-询问是否是美国居民弹窗 `com.spotware.ct`
-- **Lin-arm** · Cubox · 全屏广告-会员广告 `pro.cubox.androidapp`
-- **Lin-arm** · DeepSeek · 功能类-自动折叠思考过程 `com.deepseek.chat`
-- **Lin-arm** · DeepSeek · 功能类-思考完成后自动折叠思考过程 `com.deepseek.chat`
-- **Lin-arm** · DeepSeek · 功能类-选中快速模式时自动切换至专家模式 `com.deepseek.chat`
-- **Lin-arm** · Device Integration Service · 功能类-自动[允许]连接至Windows `com.microsoft.deviceintegrationservice`
-- **Lin-arm** · Duolingo · 全屏广告-试用会员 `com.duolingo`
-- **Lin-arm** · EASI · 全屏广告 `com.easi.customer`
-- **Lin-arm** · ECOVACS HOME · 开屏广告 `com.eco.global.app`
-- **Lin-arm** · Edge · 权限提示-通知权限 `com.microsoft.emmx`
-- **Lin-arm** · Edge · 功能类-[关闭所有标签？]弹窗 `com.microsoft.emmx`
-- **Lin-arm** · Edge · 功能类-关闭标签页 `com.microsoft.emmx`
-- **Lin-arm** · Edge · 功能类-[前往CSDN APP阅读全文]弹窗 `com.microsoft.emmx`
-- **Lin-arm** · Edge · 功能类-自动打开外部应用 `com.microsoft.emmx`
-- **Lin-arm** · Edge · 功能类-分享预览页选择在 Edge 中打开 `com.microsoft.emmx`
-- **Lin-arm** · Edge · 功能类-自动确认下载 `com.microsoft.emmx`
-- **Lin-arm** · Extinguish · 功能类-自动点击[启动] `own.moderpach.extinguish`
-- **Lin-arm** · Eyeplus · 全屏广告-弹窗广告 `com.closeli.ipc`
-- **Lin-arm** · Eyeplus · 局部广告-卡片广告 `com.closeli.ipc`
-- **Lin-arm** · Facebook · 功能类-自动点击[查看翻译] `com.facebook.katana`
-- **Lin-arm** · Fantuan Delivery · 权限提示-通知权限 `com.ca.fantuan.customer`
-- **Lin-arm** · Fantuan Delivery · 评价提示 `com.ca.fantuan.customer`
-- **Lin-arm** · Fantuan Delivery · 局部广告-悬浮广告 `com.ca.fantuan.customer`
-- **Lin-arm** · Fantuan Delivery · 全屏广告 `com.ca.fantuan.customer`
-- **Lin-arm** · fiil+ · 功能类-自动连接耳机 `com.fengeek.f002`
-- **Lin-arm** · Fing · 其他-教程弹窗 `com.overlook.android.fing`
-- **Lin-arm** · FlClash · 功能类-节点自动测延迟 `com.follow.clash`
-- **Lin-arm** · FlowMark · 更新提示 `com.fewwind.flowmark`
-- **Lin-arm** · Forest · 全屏广告 `cc.forestapp`
-- **Lin-arm** · Gemini · 其他-⚠️请移步至Google应用规则页(壳App) `com.google.android.apps.bard`
-- **Lin-arm** · GitHub · 功能类-自动批准授权验证 `com.github.android`
-- ...另有 3736 条，见去重订阅文件
+- **Lin-arm** · KMB . LWB · 开屏广告 `com.kmb.app1933`
+- **Lin-arm** · OPENPOINT · 通知提示-i珍食公告弹窗 `tw.net.pic.m.openpoint`
+- **Lin-arm** · QQ · 更新提示 `com.tencent.mobileqq`
+- **Lin-arm** · QQ · 功能类-申请入群后自动点击右上角关闭 `com.tencent.mobileqq`
+- **Lin-arm** · Tumblr · 分段广告-信息流广告 `com.tumblr`
+- **Lin-arm** · WPS Office · 评价提示 `cn.wps.moffice_eng`
+- **Lin-arm** · YouTube · 功能类-跳过视频内容警告 `com.google.android.youtube`
+- **Lin-arm** · 安全服务/小米手机管家 · 功能类-自动允许分享文件 `com.miui.securitycenter`
+- **Lin-arm** · 安全服务/小米手机管家 · 功能类-自动关闭SIM卡安全保护验证提示 `com.miui.securitycenter`
+- **Lin-arm** · 安全服务/小米手机管家 · 功能类-禁止后台运行弹窗 `com.miui.securitycenter`
+- **Lin-arm** · 丁香园 · 权限提示-悬浮小窗播放权限 `cn.dxy.idxyer`
+- **Lin-arm** · 抖音精选 · 更新提示 `com.ss.android.yumme.video`
+- **Lin-arm** · 豆瓣 · 全屏广告-弹窗广告 `com.douban.frodo`
+- **Lin-arm** · 番茄免费小说 · 权限提示-通知权限 `com.dragon.read`
+- **Lin-arm** · 番茄免费小说 · 评价提示-点评此书弹窗 `com.dragon.read`
+- **Lin-arm** · 高德地图 · 更新提示 `com.autonavi.minimap`
+- **Lin-arm** · 华为应用市场 · 功能类-自动安装应用 `com.huawei.appmarket`
+- **Lin-arm** · 华为应用市场 · 功能类-关闭自动更新提示 `com.huawei.appmarket`
+- **Lin-arm** · 欢律 · 更新提示-耳机固件更新弹窗 `com.heytap.headset`
+- **Lin-arm** · 交管12123 · 功能类-确认退出 `com.tmri.app.main`
+- **Lin-arm** · 交管12123 · 更新提示 `com.tmri.app.main`
+- **Lin-arm** · 快手极速版 · 全屏广告 `com.kuaishou.nebula`
+- **Lin-arm** · 快手极速版 · 局部广告-用户资料页广告 `com.kuaishou.nebula`
+- **Lin-arm** · 拼多多 · 功能类-多多视频每日自动签到 `com.xunmeng.pinduoduo`
+- **Lin-arm** · 拼多多 · 功能类-自动处方流程 `com.xunmeng.pinduoduo`
+- **Lin-arm** · 浦大喜奔 · 通知提示-代理提示弹窗 `com.spdbccc.app`
+- **Lin-arm** · 汽水音乐 · 功能类-全自动看广告领VIP_单日 `com.luna.music`
+- **Lin-arm** · 软件包安装程序 · 功能类-自动安装/更新软件 `com.google.android.packageinstaller`
+- **Lin-arm** · 设置 · 功能类-选默认USB连接方式 `com.android.settings`
+- **Lin-arm** · 腾讯视频 · 分段广告-卡片广告 `com.tencent.qqlive`
+- **Lin-arm** · 天猫校园 · 权限提示-通知权限 `com.tmall.campus.and`
+- **Lin-arm** · 微信 · 分段广告-朋友圈广告 `com.tencent.mm`
+- **Lin-arm** · 微信 · 功能类-自动授权登录 `com.tencent.mm`
+- **Lin-arm** · 微信 · 分段广告-订阅号消息-视频推荐 `com.tencent.mm`
+- **Lin-arm** · 微信 · 分段广告-公众号文章内广告 `com.tencent.mm`
+- **Lin-arm** · 小米相册 · 其他-图片保存成功弹窗 `com.miui.gallery`
+- **Lin-arm** · 小米运动健康 · 评价提示 `com.mi.health`
+- **Lin-arm** · 小米运动健康 · 更新提示 `com.mi.health`
+- **Lin-arm** · 小牛电动 · 更新提示-固件更新弹窗 `com.niu.cloud`
+- **Lin-arm** · 游民星空 · 功能类-签到成功弹窗 `com.gamersky`
+- **Lin-arm** · 悦通行 · 功能类-扫码确认解锁 `com.wwwscn.yuexingbao`
+- **Lin-arm** · 云空间 · 全屏广告-[升级云空间]弹窗 `com.huawei.hidisk`
+- **Lin-arm** · 运动世界 · 权限提示-定位权限 `com.zjwh.android_wh_physicalfitness`
+- **Lin-arm** · 运动世界 · 功能类-运动页面自动切换至校园跑 `com.zjwh.android_wh_physicalfitness`
+- **Lin-arm** · 掌上穿越火线 · 更新提示 `com.tencent.qt.sns`
+- **Lin-arm** · 真不卡 · 通知提示-温馨提示弹窗 `com.xiaolan.tv.chat`
+- **Lin-arm** · 支付宝 · 功能类-确认清理已选中的缓存 `com.eg.android.AlipayGphone`
+- **Lin-arm** · 知到 · 通知提示-课程提醒 `com.able.wisdomtree`
+- **Lin-arm** · 知乎 · 更新提示 `com.zhihu.android`
+- **Lin-arm** · flomo浮墨笔记 · 评价提示 `com.flomo.app`
+- **Lin-arm** · Google Play 商店 · 功能类-不开启生物识别支付 `com.android.vending`
+- **Lin-arm** · Google翻译 · 功能类-关闭登录备份翻译记录弹窗 `com.google.android.apps.translate`
+- **Lin-arm** · MT管理器 · 更新提示 `bin.mt.plus`
+- **Lin-arm** · OPPO 健康 · 更新提示 `com.heytap.health`
+- **Lin-arm** · UU远程 · 权限提示-通知提示 `com.netease.uuremote`
+- **Lin-arm** · UU远程 · 通知提示-更新提示 `com.netease.uuremote`
+- **Lin-arm** · VIVO服务 · 功能类-自动关闭温度过低提示 `com.vivo.daemonService`
+- **甘霖** · Gmail · 局部广告-信息流广告 `com.google.android.gm`
+- **甘霖** · QQ · 局部广告-好友热播 `com.tencent.mobileqq`
+- **甘霖** · 百度贴吧 · 功能类-贴吧内签到并关闭弹窗 `com.baidu.tieba`
+- **甘霖** · 刺猬猫阅读 · 全屏广告-绑定账号 `com.kuangxiangciweimao.novel`
+- **甘霖** · 抖音 · 分段广告-关闭用户推荐 `com.ss.android.ugc.aweme`
+- **甘霖** · 抖音 · 全屏广告-休息提醒 `com.ss.android.ugc.aweme`
+- **甘霖** · 番茄免费小说 · 全屏广告-阅读-视频广告 `com.dragon.read`
+- **甘霖** · 网易云音乐 · 全屏广告-功能升级弹窗 `com.netease.cloudmusic`
+- **甘霖** · 小红书 · 更新提示 `com.xingin.xhs`
+- **甘霖** · 迅雷 · 全屏广告-会员续费广告 `com.xunlei.downloadprovider`
+- **甘霖** · 应用包管理组件 · 功能类-自动安装应用 `com.miui.packageinstaller`
+- **甘霖** · 知乎 · 局部广告-回答底部评论顶部的任意广告推荐 `com.zhihu.android`
+- **奥怪** · QQ · 局部广告 `com.tencent.mobileqq`
+- **奥怪** · QQ · 更新提示 `com.tencent.mobileqq`
+- **奥怪** · QQ · 功能类-自动查看原图 `com.tencent.mobileqq`
+- **奥怪** · QQ · 分段广告-天气页卡片广告 `com.tencent.mobileqq`
+- **奥怪** · QQ · 功能类-申请入群后自动点击右上角关闭 `com.tencent.mobileqq`
+- **奥怪** · 拼多多 · 功能类-多多视频每日自动签到 `com.xunmeng.pinduoduo`
+- **奥怪** · 微信 · 功能类-登录自动授权 `com.tencent.mm`
+- **奥怪** · 支付宝 · 更新提示 `com.eg.android.AlipayGphone`
 
 ## 四、各库当前独有规则数
 
-- Lin-arm：2378 条
+- Lin-arm：2380 条
 - 甘霖：1303 条
 - 奥怪：155 条
 

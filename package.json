@@ -1,0 +1,12 @@
+{
+  "name": "gkd-subscription-watch",
+  "version": "1.0.0",
+  "description": "每周检测并对比 Lin-arm / 甘霖 / 奥怪 三个 GKD 订阅，生成去重规则与差异报告",
+  "type": "module",
+  "scripts": {
+    "start": "node scripts/main.mjs"
+  },
+  "dependencies": {
+    "json5": "^2.2.3"
+  }
+}

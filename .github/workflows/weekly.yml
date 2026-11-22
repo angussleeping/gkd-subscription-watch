@@ -1,0 +1,64 @@
+name: 每周检测 GKD 订阅差异
+
+on:
+  schedule:
+    # 每周一 09:00 (北京时间) = UTC 01:00
+    - cron: '0 1 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  detect:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出仓库
+        uses: actions/checkout@v4
+
+      - name: 设置 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 安装依赖
+        run: npm install --silent
+
+      - name: 运行检测脚本
+        run: node scripts/main.mjs
+
+      - name: 提交产物
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "无变更，跳过提交"
+          else
+            git commit -m "chore: 每周订阅检测 $(date +%F)"
+            git push
+          fi
+
+      - name: 发布 Release 推送给用户
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          CHANGED=$(node -p "require('./data/changed.json').changed")
+          if [ "$CHANGED" != "true" ]; then
+            echo "本周无变化，跳过 Release"
+            exit 0
+          fi
+          DATE=$(node -p "require('./data/changed.json').date")
+          NEW=$(node -p "require('./data/changed.json').newUnique")
+          TAG="weekly-$DATE"
+          NOTES="本周新增不重复规则 **$NEW** 条。完整对比见 reports/$DATE.md，去重订阅见 dist/unique_rules.json5。"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "Release $TAG 已存在，跳过"
+          else
+            gh release create "$TAG" \
+              --title "GKD 三库周报 $DATE" \
+              --notes "$NOTES" \
+              dist/unique_rules.json5 \
+              dist/merged.json5 \
+              reports/$DATE.md
+          fi

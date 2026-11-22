@@ -46,20 +46,27 @@ function ruleFingerprint(rule) {
   return hash(core);
 }
 
-// 库优先级：小米系统应用奥怪优先，其余 Lin-arm 优先
-function sourceRank(sourceKey, appId) {
-  if (isMiSystemApp(appId)) {
-    return { aoguai: 0, linarm: 1, ganlin: 2 }[sourceKey] ?? 9;
-  }
-  return { linarm: 0, ganlin: 1, aoguai: 2 }[sourceKey] ?? 9;
+// 库优先级：小米系统应用奥怪优先，其余按动态评分（热度+活跃度+规则规模）排序
+function makeRankFn(sources) {
+  const byKey = new Map(sources.map(s => [s.key, s]));
+  return (sourceKey, appId) => {
+    if (isMiSystemApp(appId)) {
+      if (sourceKey === 'aoguai' && byKey.has('aoguai')) return 0;
+      if (sourceKey === 'linarm' && byKey.has('linarm')) return 1;
+      if (sourceKey === 'ganlin' && byKey.has('ganlin')) return 2;
+    }
+    const s = byKey.get(sourceKey);
+    return s ? 100 - Math.min(90, s.score || 0) : 99;
+  };
 }
 
-// 主入口：subs = { sourceKey: parsedSubscription }
-export function buildPrecise(subs) {
+// 主入口：subs = { sourceKey: parsedSubscription }, sources = 本周动态活跃源清单
+export function buildPrecise(subs, sources = SOURCES) {
+  const rank = makeRankFn(sources);
   // 全局规则语义表：语义键 -> [{sourceKey, appId, group}]
   const buckets = new Map();
 
-  for (const s of SOURCES) {
+  for (const s of sources) {
     const sub = subs[s.key];
     if (!sub) continue;
     for (const [appId, app] of sub.apps) {
@@ -93,7 +100,7 @@ export function buildPrecise(subs) {
   const union = (a, b) => { const ra = find(a), rb = find(b); if (ra !== rb) parent.set(ra, rb); };
   for (const k of buckets.keys()) if (!parent.has(k)) parent.set(k, k);
   // 同一规则组产生的多个快照键属于同一簇
-  for (const s of SOURCES) {
+  for (const s of sources) {
     const sub = subs[s.key];
     if (!sub) continue;
     for (const [appId, app] of sub.apps) {
@@ -124,7 +131,7 @@ export function buildPrecise(subs) {
     const appId = list[0].appId;
     const appName = list[0].appName;
     // 选最优库：按rank排序，取rank最小的作为保留源
-    const sorted = [...list].sort((a, b) => sourceRank(a.sourceKey, appId) - sourceRank(b.sourceKey, appId));
+    const sorted = [...list].sort((a, b) => rank(a.sourceKey, appId) - rank(b.sourceKey, appId));
     const keeper = sorted[0];
     dedupCount += list.length - 1;
 

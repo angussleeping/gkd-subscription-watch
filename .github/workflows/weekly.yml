@@ -1,4 +1,4 @@
-name: 每周检测 GKD 订阅差异
+name: 每周检测 GKD 全站订阅差异
 
 on:
   schedule:
@@ -24,8 +24,17 @@ jobs:
       - name: 安装依赖
         run: npm install --silent
 
-      - name: 运行检测脚本
+      - name: 运行全站检测脚本
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: node scripts/main.mjs
+
+      - name: 输出源发现摘要
+        run: |
+          echo "=== 本周活跃源 ==="
+          node -e "const d=require('./data/sources.json'); d.active.forEach(s=>console.log(s.score+'分 | '+s.name+' | '+s.fullName+' | '+s.groups+'组 | '+s.stars+'★'))"
+          echo "=== 降级源 ==="
+          node -e "const d=require('./data/sources.json'); d.inactive.forEach(s=>console.log(s.name+' | '+s.reason))"
 
       - name: 提交产物
         run: |
@@ -35,7 +44,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "无变更，跳过提交"
           else
-            git commit -m "chore: 每周订阅检测 $(date +%F)"
+            git commit -m "chore: 每周全站订阅检测 $(date +%F)"
             git push
           fi
 
@@ -50,14 +59,18 @@ jobs:
           fi
           DATE=$(node -p "require('./data/changed.json').date")
           NEW=$(node -p "require('./data/changed.json').newUnique")
+          NEW_SRC=$(node -p "require('./data/changed.json').newSources.length")
+          DROP_SRC=$(node -p "require('./data/changed.json').droppedSources.length")
           TAG="weekly-$DATE"
-          NOTES="本周新增不重复规则 **$NEW** 条。完整对比见 reports/$DATE.md，去重订阅见 dist/unique_rules.json5。"
           if gh release view "$TAG" >/dev/null 2>&1; then
-            echo "Release $TAG 已存在，跳过"
+            echo "Release $TAG 已存在，更新附件"
+            gh release upload "$TAG" --clobber \
+              dist/precise.json5 dist/unique_rules.json5 dist/merged.json5 reports/$DATE.md
           else
             gh release create "$TAG" \
-              --title "GKD 三库周报 $DATE" \
-              --notes "$NOTES" \
+              --title "GKD 全站周报 $DATE" \
+              --notes "本周新增不重复规则 **$NEW** 条；新纳入源 **$NEW_SRC** 个，降级源 **$DROP_SRC** 个。完整报告见 reports/$DATE.md。推荐订阅 dist/precise.json5。" \
+              dist/precise.json5 \
               dist/unique_rules.json5 \
               dist/merged.json5 \
               reports/$DATE.md

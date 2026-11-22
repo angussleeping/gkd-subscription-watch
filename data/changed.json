@@ -1,16 +1,36 @@
 {
   "date": "2026-11-22",
   "isFirstRun": false,
-  "changed": true,
-  "newUnique": 80,
+  "changed": false,
+  "newUnique": 0,
+  "newSources": [],
+  "droppedSources": [],
   "added": {
-    "linarm": 64,
-    "ganlin": 13,
-    "aoguai": 12
+    "ganlin": 0,
+    "aoguai": 0,
+    "linarm": 0,
+    "gh_mengnianxiaoyao_gkd_subscription": 0,
+    "gh_lin_arm_gkd_rules": 0,
+    "gh_aisouler_gkd_subscription": 0,
+    "gh_yanmuq_muqi_gkd": 0,
+    "gh_oklazeno_gkd_subscription": 0,
+    "gh_mrlctate_gkd_mrlc": 0,
+    "gh_cjy0812_ling033_gkd_rules": 0,
+    "gh_lenoreric_gk_lemon_d": 0,
+    "gh_timyang2005_gkd_merged_subscription": 0
   },
   "removed": {
-    "linarm": 62,
-    "ganlin": 13,
-    "aoguai": 12
+    "ganlin": 0,
+    "aoguai": 0,
+    "linarm": 0,
+    "gh_mengnianxiaoyao_gkd_subscription": 0,
+    "gh_lin_arm_gkd_rules": 0,
+    "gh_aisouler_gkd_subscription": 0,
+    "gh_yanmuq_muqi_gkd": 0,
+    "gh_oklazeno_gkd_subscription": 0,
+    "gh_mrlctate_gkd_mrlc": 0,
+    "gh_cjy0812_ling033_gkd_rules": 0,
+    "gh_lenoreric_gk_lemon_d": 0,
+    "gh_timyang2005_gkd_merged_subscription": 0
   }
 }

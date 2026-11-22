@@ -1,0 +1,589 @@
+{
+  "generatedAt": "2026-11-22T08:50:00.860Z",
+  "active": [
+    {
+      "key": "ganlin",
+      "id": 233,
+      "name": "甘霖",
+      "fullName": "ganlinte/GKD-subscription",
+      "branch": "main",
+      "path": "dist/ganlin_gkd.json5",
+      "urls": [
+        "https://raw.githubusercontent.com/ganlinte/GKD-subscription/main/dist/ganlin_gkd.json5",
+        "https://registry.npmmirror.com/@ganlinte/gkd-subscription/latest/files"
+      ],
+      "origin": "community",
+      "core": true,
+      "stars": 938,
+      "pushedAt": "2026-11-01T03:27:41Z",
+      "repoUrl": "https://github.com/ganlinte/GKD-subscription",
+      "description": "GKD 订阅规则",
+      "version": 72,
+      "apps": 610,
+      "groups": 1389,
+      "enabledGroups": 104,
+      "ruleItems": 1987,
+      "bytes": 556510,
+      "score": 98,
+      "failCount": 0,
+      "lastSeen": "2026-11-22T08:50:00.860Z"
+    },
+    {
+      "key": "aoguai",
+      "id": 86,
+      "name": "奥怪",
+      "fullName": "aoguai/subscription",
+      "branch": "custom",
+      "path": "dist/aoguai_gkd.json5",
+      "urls": [
+        "https://raw.githubusercontent.com/aoguai/subscription/custom/dist/aoguai_gkd.json5",
+        "https://cdn.jsdelivr.net/gh/aoguai/subscription@custom/dist/aoguai_gkd.json5",
+        "https://registry.npmmirror.com/@aoguai/subscription/latest/files/dist/aoguai_gkd.json5"
+      ],
+      "origin": "community",
+      "core": true,
+      "stars": 1171,
+      "pushedAt": "2026-11-08T09:52:21Z",
+      "repoUrl": "https://github.com/aoguai/subscription",
+      "description": "由 aoguai 维护的 GKD 第三方订阅规则",
+      "version": 89,
+      "apps": 72,
+      "groups": 280,
+      "enabledGroups": 4,
+      "ruleItems": 645,
+      "bytes": 293957,
+      "score": 98,
+      "failCount": 0,
+      "lastSeen": "2026-11-22T08:50:00.860Z"
+    },
+    {
+      "key": "linarm",
+      "id": 667,
+      "name": "Lin-arm",
+      "fullName": "Lin-arm/GKD_subscription",
+      "branch": "main",
+      "path": "dist/gkd.json5",
+      "urls": [
+        "https://raw.githubusercontent.com/Lin-arm/GKD_subscription/main/dist/gkd.json5",
+        "https://jsd.admincdn.com/gh/Lin-arm/GKD_subscription@main/dist/gkd.json5",
+        "https://cdn.jsdelivr.net/gh/Lin-arm/GKD_subscription@main/dist/gkd.json5"
+      ],
+      "origin": "search",
+      "core": true,
+      "stars": 7536,
+      "pushedAt": "2026-11-22T05:24:56Z",
+      "repoUrl": "https://github.com/Lin-arm/GKD_subscription",
+      "description": "用于安卓 GKD 的第三方订阅规则 (👻Fork版)",
+      "version": 641,
+      "apps": 1009,
+      "groups": 2527,
+      "enabledGroups": 2523,
+      "ruleItems": 3988,
+      "bytes": 1281751,
+      "score": 90,
+      "failCount": 0,
+      "lastSeen": "2026-11-22T08:50:00.860Z"
+    },
+    {
+      "key": "gh_mengnianxiaoyao_gkd_subscription",
+      "id": 1,
+      "name": "MengNianxiaoyao/gkd-subscription",
+      "fullName": "MengNianxiaoyao/gkd-subscription",
+      "branch": "main",
+      "path": "dist/gkd.json5",
+      "urls": [
+        "https://raw.githubusercontent.com/MengNianxiaoyao/gkd-subscription/main/dist/gkd.json5",
+        "https://cdn.jsdelivr.net/gh/MengNianxiaoyao/gkd-subscription@main/dist/gkd.json5",
+        "https://jsd.admincdn.com/gh/MengNianxiaoyao/gkd-subscription@main/dist/gkd.json5"
+      ],
+      "origin": "search",
+      "core": false,
+      "stars": 499,
+      "pushedAt": "2026-10-30T02:14:08Z",
+      "repoUrl": "https://github.com/MengNianxiaoyao/gkd-subscription",
+      "description": "梦念逍遥 の GKD 订阅规则",
+      "version": 79,
+      "apps": 285,
+      "groups": 870,
+      "enabledGroups": 59,
+      "ruleItems": 1482,
+      "bytes": 540237,
+      "score": 87,
+      "failCount": 0,
+      "lastSeen": "2026-11-22T08:50:00.860Z"
+    },
+    {
+      "key": "gh_lin_arm_gkd_rules",
+      "id": 777,
+      "name": "Lin-arm/gkd-Rules",
+      "fullName": "Lin-arm/gkd-Rules",
+      "branch": "main",
+      "path": "dist/gkd.json5",
+      "urls": [
+        "https://raw.githubusercontent.com/Lin-arm/gkd-Rules/main/dist/gkd.json5",
+        "https://cdn.jsdelivr.net/gh/Lin-arm/gkd-Rules@main/dist/gkd.json5",
+        "https://jsd.admincdn.com/gh/Lin-arm/gkd-Rules@main/dist/gkd.json5"
+      ],
+      "origin": "search",
+      "core": false,
+      "stars": 97,
+      "pushedAt": "2026-11-18T15:38:30Z",
+      "repoUrl": "https://github.com/Lin-arm/gkd-Rules",
+      "description": "自用的GKD订阅",
+      "version": 129,
+      "apps": 33,
+      "groups": 195,
+      "enabledGroups": 117,
+      "ruleItems": 462,
+      "bytes": 147437,
+      "score": 78,
+      "failCount": 0,
+      "lastSeen": "2026-11-22T08:50:00.860Z"
+    },
+    {
+      "key": "gh_aisouler_gkd_subscription",
+      "id": 404,
+      "name": "AIsouler/gkd-subscription",
+      "fullName": "AIsouler/gkd-subscription",
+      "branch": "main",
+      "path": "dist/gkd.json5",
+      "urls": [
+        "https://raw.githubusercontent.com/AIsouler/gkd-subscription/main/dist/gkd.json5",
+        "https://cdn.jsdelivr.net/gh/AIsouler/gkd-subscription@main/dist/gkd.json5",
+        "https://jsd.admincdn.com/gh/AIsouler/gkd-subscription@main/dist/gkd.json5"
+      ],
+      "origin": "search",
+      "core": false,
+      "stars": 35,
+      "pushedAt": "2026-11-19T14:21:20Z",
+      "repoUrl": "https://github.com/AIsouler/gkd-subscription",
+      "description": "自用订阅",
+      "version": 124,
+      "apps": 76,
+      "groups": 240,
+      "enabledGroups": 240,
+      "ruleItems": 328,
+      "bytes": 117292,
+      "score": 75,
+      "failCount": 0,
+      "lastSeen": "2026-11-22T08:50:00.860Z"
+    },
+    {
+      "key": "gh_yanmuq_muqi_gkd",
+      "id": 808,
+      "name": "yanmuq/muqi_gkd",
+      "fullName": "yanmuq/muqi_gkd",
+      "branch": "main",
+      "path": "dist/gkd.json5",
+      "urls": [
+        "https://raw.githubusercontent.com/yanmuq/muqi_gkd/main/dist/gkd.json5",
+        "https://cdn.jsdelivr.net/gh/yanmuq/muqi_gkd@main/dist/gkd.json5",
+        "https://jsd.admincdn.com/gh/yanmuq/muqi_gkd@main/dist/gkd.json5"
+      ],
+      "origin": "search",
+      "core": false,
+      "stars": 22,
+      "pushedAt": "2026-11-04T00:02:07Z",
+      "repoUrl": "https://github.com/yanmuq/muqi_gkd",
+      "description": "本仓库为GKD无全局第三方附加订阅，与其他订阅叠加使用，请阅读说明后订阅！！！",
+      "version": 54,
+      "apps": 35,
+      "groups": 117,
+      "enabledGroups": 16,
+      "ruleItems": 164,
+      "bytes": 53821,
+      "score": 65,
+      "failCount": 0,
+      "lastSeen": "2026-11-22T08:50:00.860Z"
+    },
+    {
+      "key": "gh_oklazeno_gkd_subscription",
+      "id": 72,
+      "name": "oklazeno/gkd-subscription",
+      "fullName": "oklazeno/gkd-subscription",
+      "branch": "main",
+      "path": "gkd.json5",
+      "urls": [
+        "https://raw.githubusercontent.com/oklazeno/gkd-subscription/main/gkd.json5",
+        "https://cdn.jsdelivr.net/gh/oklazeno/gkd-subscription@main/gkd.json5",
+        "https://jsd.admincdn.com/gh/oklazeno/gkd-subscription@main/gkd.json5"
+      ],
+      "origin": "search",
+      "core": false,
+      "stars": 28,
+      "pushedAt": "2026-09-22T04:02:28Z",
+      "repoUrl": "https://github.com/oklazeno/gkd-subscription",
+      "description": "GKD 订阅整合版（社区优秀开源规则整合）",
+      "version": 1,
+      "apps": 1036,
+      "groups": 3337,
+      "enabledGroups": 2663,
+      "ruleItems": 5206,
+      "bytes": 1590529,
+      "score": 64,
+      "failCount": 0,
+      "lastSeen": "2026-11-22T08:50:00.860Z"
+    },
+    {
+      "key": "gh_mrlctate_gkd_mrlc",
+      "id": 2,
+      "name": "mrlctate/gkd-mrlc",
+      "fullName": "mrlctate/gkd-mrlc",
+      "branch": "main",
+      "path": "dist/gkd.json5",
+      "urls": [
+        "https://raw.githubusercontent.com/mrlctate/gkd-mrlc/main/dist/gkd.json5",
+        "https://cdn.jsdelivr.net/gh/mrlctate/gkd-mrlc@main/dist/gkd.json5",
+        "https://jsd.admincdn.com/gh/mrlctate/gkd-mrlc@main/dist/gkd.json5"
+      ],
+      "origin": "search",
+      "core": false,
+      "stars": 152,
+      "pushedAt": "2026-08-20T09:30:40Z",
+      "repoUrl": "https://github.com/mrlctate/gkd-mrlc",
+      "description": "GKD 第三方订阅规则",
+      "version": 75,
+      "apps": 693,
+      "groups": 1505,
+      "enabledGroups": 69,
+      "ruleItems": 2446,
+      "bytes": 782878,
+      "score": 62,
+      "failCount": 0,
+      "lastSeen": "2026-11-22T08:50:00.860Z"
+    },
+    {
+      "key": "gh_cjy0812_ling033_gkd_rules",
+      "id": 233,
+      "name": "cjy0812/Ling033_GKD_Rules",
+      "fullName": "cjy0812/Ling033_GKD_Rules",
+      "branch": "main",
+      "path": "dist/gkd.json5",
+      "urls": [
+        "https://raw.githubusercontent.com/cjy0812/Ling033_GKD_Rules/main/dist/gkd.json5",
+        "https://cdn.jsdelivr.net/gh/cjy0812/Ling033_GKD_Rules@main/dist/gkd.json5",
+        "https://jsd.admincdn.com/gh/cjy0812/Ling033_GKD_Rules@main/dist/gkd.json5"
+      ],
+      "origin": "search",
+      "core": false,
+      "stars": 10,
+      "pushedAt": "2026-11-22T07:13:12Z",
+      "repoUrl": "https://github.com/cjy0812/Ling033_GKD_Rules",
+      "description": "自用GKD规则，偏细分与功能",
+      "version": 16,
+      "apps": 12,
+      "groups": 41,
+      "enabledGroups": 41,
+      "ruleItems": 69,
+      "bytes": 30872,
+      "score": 53,
+      "failCount": 0,
+      "lastSeen": "2026-11-22T08:50:00.860Z"
+    },
+    {
+      "key": "gh_lenoreric_gk_lemon_d",
+      "id": 250,
+      "name": "LenorEric/GK-Lemon-D",
+      "fullName": "LenorEric/GK-Lemon-D",
+      "branch": "main",
+      "path": "dist/GK-LEMON-D.json5",
+      "urls": [
+        "https://raw.githubusercontent.com/LenorEric/GK-Lemon-D/main/dist/GK-LEMON-D.json5",
+        "https://cdn.jsdelivr.net/gh/LenorEric/GK-Lemon-D@main/dist/GK-LEMON-D.json5",
+        "https://jsd.admincdn.com/gh/LenorEric/GK-Lemon-D@main/dist/GK-LEMON-D.json5"
+      ],
+      "origin": "search",
+      "core": false,
+      "stars": 21,
+      "pushedAt": "2026-11-20T03:17:57Z",
+      "repoUrl": "https://github.com/LenorEric/GK-Lemon-D",
+      "description": "自用gkd规则，部分策略更新更快或更激进。作为id667规则的补充。接受并鼓励PR，接受常用（主播也在用）的app的适配请求",
+      "version": 56,
+      "apps": 14,
+      "groups": 26,
+      "enabledGroups": 25,
+      "ruleItems": 33,
+      "bytes": 8579,
+      "score": 53,
+      "failCount": 0,
+      "lastSeen": "2026-11-22T08:50:00.860Z"
+    },
+    {
+      "key": "gh_timyang2005_gkd_merged_subscription",
+      "id": 999001,
+      "name": "timyang2005/gkd-merged-subscription",
+      "fullName": "timyang2005/gkd-merged-subscription",
+      "branch": "main",
+      "path": "merged_gkd.json5",
+      "urls": [
+        "https://raw.githubusercontent.com/timyang2005/gkd-merged-subscription/main/merged_gkd.json5",
+        "https://cdn.jsdelivr.net/gh/timyang2005/gkd-merged-subscription@main/merged_gkd.json5",
+        "https://jsd.admincdn.com/gh/timyang2005/gkd-merged-subscription@main/merged_gkd.json5"
+      ],
+      "origin": "search",
+      "core": false,
+      "stars": 13,
+      "pushedAt": "2026-05-29T16:56:20Z",
+      "repoUrl": "https://github.com/timyang2005/gkd-merged-subscription",
+      "description": "GKD订阅规则合并版 - 整合多个优质订阅源",
+      "version": 2,
+      "apps": 886,
+      "groups": 2074,
+      "enabledGroups": 2074,
+      "ruleItems": 3213,
+      "bytes": 1749432,
+      "score": 51,
+      "failCount": 0,
+      "lastSeen": "2026-11-22T08:50:00.860Z"
+    }
+  ],
+  "inactive": [],
+  "discovery": {
+    "searched": 199,
+    "communitySeeds": 5,
+    "candidates": 135,
+    "validated": 12,
+    "rejected": [
+      {
+        "fullName": "jiuqianyuan/GKD_subscription",
+        "reason": "501 天无更新"
+      },
+      {
+        "fullName": "JamisonLeo/GKD-subscription",
+        "reason": "1000 天无更新"
+      },
+      {
+        "fullName": "MINIPuffer/GKD_subscription",
+        "reason": "744 天无更新"
+      },
+      {
+        "fullName": "AliusCode/GKD-subscription",
+        "reason": "258 天无更新"
+      },
+      {
+        "fullName": "0123z/gkd-subscription",
+        "reason": "771 天无更新"
+      },
+      {
+        "fullName": "xiaowonet/local-subscription",
+        "reason": "1045 天无更新"
+      },
+      {
+        "fullName": "q595002599/AIsouler_GKD_subscription",
+        "reason": "575 天无更新"
+      },
+      {
+        "fullName": "lizhaohai369/fork-gkd-mrlc-ts",
+        "reason": "662 天无更新"
+      },
+      {
+        "fullName": "362115815/GKD_subscription",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "ezn24/GKD_subscription_Alsouler",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "MeverikC/gkd-Backup",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "Dear-Ded/gkd-subscription",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "Moralts/GKD_subscription",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "ajun0719/ajungkd-release",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "yandongxu0821/gkd_subscription_rules",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "lhj1618GitHub/GGKD",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "yangkeith/GKD_subscription",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "baidu0013/hongguo-short-drama-gkd",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "boonlove/GKD_Subscription",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "bingguang1/GKD-tetiao",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "nisconder/Nisconder-GKD-Subscription",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "TuingLi/GKD_RULES",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "crazyOth/crazy-gkd-subscription",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "EsTrans/GKD_subscription",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "QingJ/GKD_subscription",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "jsllb1986/gkd-rules",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "rensss/GKD_subscription",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "brett80/GKD_subscription_old",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "dlzbm/gkd-merged-subscription",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "ys8952/gkd-subscription",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "K-S-D-M/gkd-subscription-public",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "nanzhinet/NanYi",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "rranbo7777777/gkd-fanqie-subscription",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "cjwing211/gkd",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "addshell/gkd",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "huangsuming/gkd",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "S-NOPPY/gkd",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "kakarose2022/GKD",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "Cai1106/GKD",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "yzl3014/gkd",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "Kffhi/gkd-subscription",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "summershua/KhornE",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "luckyliuzhi/GKD-",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "superq-c/gkd-subscription",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "ThereChenSnow/GKD_subscription",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "praise579/gkd-subscription",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "woicc/gkd-subscription",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "8099bb4X21/gkd-subscription",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "jim-jay/gkd-subscription",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "anransu983-sketch/gkd-rules",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "eric1ee/GKDremote",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "h839824317/GKD--",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "Chenfeid/gkd-",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "hlfine/gkd-sub",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "lin752252801/gkd-json",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "winter-icecoke/gkd-subscription",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "prowercc/-GKD",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "yechoo0321/GKD-Auto",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "gamefan919-bot/gkd-subscription",
+        "reason": "stars 不足 10"
+      },
+      {
+        "fullName": "zmlu/latest-gkd-subscription",
+        "reason": "stars 不足 10"
+      }
+    ]
+  }
+}

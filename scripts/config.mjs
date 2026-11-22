@@ -52,6 +52,8 @@ export const PATHS = {
   uniqueRules: 'dist/unique_rules.json5',
   uniqueVersion: 'dist/unique_rules.version.json5',
   merged: 'dist/merged.json5',
+  preciseRules: 'dist/precise.json5',
+  preciseVersion: 'dist/precise.version.json5',
   report: 'reports/latest.md',
   reportArchiveDir: 'reports',
 };

@@ -3,6 +3,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { SOURCES, OUTPUT_SUBSCRIPTION, REPO, PATHS } from './config.mjs';
 import { fetchWithFallback, parseSubscription, stats } from './lib.mjs';
+import { buildPrecise } from './precise.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const p = rel => path.join(ROOT, rel);
@@ -142,6 +143,19 @@ async function main() {
   };
   writeFile(PATHS.merged, JSON.stringify(mergedSub));
 
+  // 8.5 精准去重：基于快照ID+语义名的跨库同广告识别，保留最优库并合并独有选择器
+  const preciseResult = buildPrecise(subs);
+  const preciseSub = {
+    id: OUTPUT_SUBSCRIPTION.id + 2,
+    name: 'GKD 三库精准去重',
+    version: uniqueSub.version,
+    author: OUTPUT_SUBSCRIPTION.author,
+    checkUpdateUrl: './precise.version.json5',
+    apps: preciseResult.apps,
+  };
+  writeFile(PATHS.preciseRules, JSON.stringify(preciseSub));
+  writeFile(PATHS.preciseVersion, JSON.stringify({ id: preciseSub.id, version: preciseSub.version }));
+
   // 9. 生成报告
   const lines = [];
   lines.push(`# GKD 三库订阅检测报告`);
@@ -188,16 +202,31 @@ async function main() {
     lines.push(`- ${s.name}：${uniqueCounts[s.key]} 条`);
   }
   lines.push('');
-  lines.push('## 五、产物说明');
+  const preciseGroups = preciseResult.apps.reduce((s, a) => s + a.groups.length, 0);
+  lines.push('## 五、精准去重结果（推荐）');
   lines.push('');
-  lines.push('- `dist/unique_rules.json5`：三库去重精选订阅，只含跨库唯一规则，可直接导入 GKD（ID 990667）');
-  lines.push('- `dist/merged.json5`：三库合并全量订阅，重复规则只保留一份，优先级 Lin-arm > 甘霖 > 奥怪（ID 990668）');
-  lines.push('- `dist/unique_rules.version.json5`：更新检查文件');
+  lines.push(`基于「快照图片 ID + 语义组名」识别跨库的同一广告规则（即使选择器写法不同也能识别），共合并 **${preciseResult.dedupCount}** 条重复规则。`);
+  lines.push('');
+  lines.push('| 产物 | 应用数 | 规则组数 | 说明 |');
+  lines.push('|---|---|---|---|');
+  lines.push(`| 三库合并全量 | ${mergedApps.size} | ${mergedSub.apps.reduce((s, a) => s + a.groups.length, 0)} | 仅按内容指纹去重 |`);
+  lines.push(`| 三库去重精选 | ${uniqueApps.size} | ${uniqueSub.apps.reduce((s, a) => s + a.groups.length, 0)} | 只保留跨库唯一规则 |`);
+  lines.push(`| **三库精准去重** | ${preciseResult.apps.length} | ${preciseGroups} | 语义级去重，推荐导入 |`);
+  lines.push('');
+  lines.push('精准去重策略：同一广告（跨库快照 ID 相同或语义名相同）只保留一份，小米系统应用优先保留奥怪版本、其余优先 Lin-arm，并合并各库独有选择器以防漏杀。');
+  lines.push('');
+  lines.push('## 六、产物说明');
+  lines.push('');
+  lines.push('- `dist/precise.json5`：**精准去重订阅（推荐）**，语义级去重后一份，可直接导入 GKD（ID 990669）');
+  lines.push('- `dist/unique_rules.json5`：三库去重精选订阅，只含跨库唯一规则（ID 990667）');
+  lines.push('- `dist/merged.json5`：三库合并全量订阅，仅按内容指纹去重（ID 990668）');
+  lines.push('- `dist/*.version.json5`：各订阅的更新检查文件');
   lines.push('');
   const rawUrl = `https://raw.githubusercontent.com/${REPO.owner}/${REPO.name}/main/`;
   lines.push('### 一键导入链接');
   lines.push('');
   lines.push('```txt');
+  lines.push(rawUrl + PATHS.preciseRules);
   lines.push(rawUrl + PATHS.uniqueRules);
   lines.push(rawUrl + PATHS.merged);
   lines.push('```');
@@ -229,7 +258,8 @@ async function main() {
   console.log('\n=== 完成 ===');
   console.log(`新增独有规则: ${newUnique.length}`);
   for (const s of SOURCES) console.log(`${s.name}: +${changes[s.key].added.length} / -${changes[s.key].removed.length}`);
-  console.log(`产物: ${PATHS.uniqueRules}, ${PATHS.merged}, ${PATHS.report}`);
+  console.log(`精准去重: 合并 ${preciseResult.dedupCount} 条重复, 产出 ${preciseSub.apps.reduce((s, a) => s + a.groups.length, 0)} 组`);
+  console.log(`产物: ${PATHS.preciseRules}, ${PATHS.uniqueRules}, ${PATHS.merged}, ${PATHS.report}`);
 }
 
 main().catch(e => { console.error(e); process.exit(1); });

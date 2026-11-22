@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-22T08:50:58.094Z",
+  "generatedAt": "2026-11-22T08:58:18.776Z",
   "active": [
     {
       "key": "ganlin",
@@ -26,7 +26,7 @@
       "bytes": 556510,
       "score": 98,
       "failCount": 0,
-      "lastSeen": "2026-11-22T08:50:58.094Z"
+      "lastSeen": "2026-11-22T08:58:18.776Z"
     },
     {
       "key": "aoguai",
@@ -54,7 +54,7 @@
       "bytes": 293957,
       "score": 98,
       "failCount": 0,
-      "lastSeen": "2026-11-22T08:50:58.094Z"
+      "lastSeen": "2026-11-22T08:58:18.776Z"
     },
     {
       "key": "linarm",
@@ -82,7 +82,7 @@
       "bytes": 1281751,
       "score": 90,
       "failCount": 0,
-      "lastSeen": "2026-11-22T08:50:58.094Z"
+      "lastSeen": "2026-11-22T08:58:18.776Z"
     },
     {
       "key": "gh_mengnianxiaoyao_gkd_subscription",
@@ -110,7 +110,7 @@
       "bytes": 540237,
       "score": 87,
       "failCount": 0,
-      "lastSeen": "2026-11-22T08:50:58.094Z"
+      "lastSeen": "2026-11-22T08:58:18.776Z"
     },
     {
       "key": "gh_lin_arm_gkd_rules",
@@ -138,7 +138,7 @@
       "bytes": 147437,
       "score": 78,
       "failCount": 0,
-      "lastSeen": "2026-11-22T08:50:58.095Z"
+      "lastSeen": "2026-11-22T08:58:18.776Z"
     },
     {
       "key": "gh_aisouler_gkd_subscription",
@@ -166,7 +166,7 @@
       "bytes": 117292,
       "score": 75,
       "failCount": 0,
-      "lastSeen": "2026-11-22T08:50:58.095Z"
+      "lastSeen": "2026-11-22T08:58:18.776Z"
     },
     {
       "key": "gh_yanmuq_muqi_gkd",
@@ -194,7 +194,7 @@
       "bytes": 53821,
       "score": 65,
       "failCount": 0,
-      "lastSeen": "2026-11-22T08:50:58.095Z"
+      "lastSeen": "2026-11-22T08:58:18.776Z"
     },
     {
       "key": "gh_oklazeno_gkd_subscription",
@@ -222,7 +222,7 @@
       "bytes": 1590529,
       "score": 64,
       "failCount": 0,
-      "lastSeen": "2026-11-22T08:50:58.095Z"
+      "lastSeen": "2026-11-22T08:58:18.776Z"
     },
     {
       "key": "gh_mrlctate_gkd_mrlc",
@@ -250,7 +250,7 @@
       "bytes": 782878,
       "score": 62,
       "failCount": 0,
-      "lastSeen": "2026-11-22T08:50:58.095Z"
+      "lastSeen": "2026-11-22T08:58:18.776Z"
     },
     {
       "key": "gh_cjy0812_ling033_gkd_rules",
@@ -278,7 +278,7 @@
       "bytes": 30872,
       "score": 53,
       "failCount": 0,
-      "lastSeen": "2026-11-22T08:50:58.095Z"
+      "lastSeen": "2026-11-22T08:58:18.776Z"
     },
     {
       "key": "gh_lenoreric_gk_lemon_d",
@@ -306,7 +306,7 @@
       "bytes": 8579,
       "score": 53,
       "failCount": 0,
-      "lastSeen": "2026-11-22T08:50:58.095Z"
+      "lastSeen": "2026-11-22T08:58:18.776Z"
     },
     {
       "key": "gh_timyang2005_gkd_merged_subscription",
@@ -334,7 +334,7 @@
       "bytes": 1749432,
       "score": 51,
       "failCount": 0,
-      "lastSeen": "2026-11-22T08:50:58.095Z"
+      "lastSeen": "2026-11-22T08:58:18.776Z"
     }
   ],
   "inactive": [],

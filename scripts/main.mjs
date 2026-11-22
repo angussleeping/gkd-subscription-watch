@@ -21,6 +21,16 @@ function writeFile(rel, content) {
 }
 
 function groupKey(appId, fp) { return `${appId}|${fp}`; }
+
+// GKD 要求规则组 key 为整数，且同一订阅内唯一。生成产物时统一重新编号。
+function normalizeOutputKeys(apps) {
+  let n = 1;
+  for (const app of apps) {
+    for (const g of app.groups) g.key = n++;
+  }
+  return apps;
+}
+
 function nowISO() { return new Date().toISOString(); }
 function today() { return new Date().toISOString().slice(0, 10); }
 function st(sub) { return stats(sub); }
@@ -118,7 +128,7 @@ async function main() {
     version,
     author: OUTPUT_SUBSCRIPTION.author,
     checkUpdateUrl: OUTPUT_SUBSCRIPTION.checkUpdateUrl,
-    apps: [...uniqueApps.values()],
+    apps: normalizeOutputKeys([...uniqueApps.values()]),
   };
   writeFile(PATHS.uniqueRules, JSON.stringify(uniqueSub));
   writeFile(PATHS.uniqueVersion, JSON.stringify({ id: uniqueSub.id, version }));
@@ -144,7 +154,7 @@ async function main() {
     name: 'GKD 全站动态合并全量',
     version,
     author: OUTPUT_SUBSCRIPTION.author,
-    apps: [...mergedApps.values()],
+    apps: normalizeOutputKeys([...mergedApps.values()]),
   };
   writeFile(PATHS.merged, JSON.stringify(mergedSub));
 
@@ -156,7 +166,7 @@ async function main() {
     version,
     author: OUTPUT_SUBSCRIPTION.author,
     checkUpdateUrl: './precise.version.json5',
-    apps: preciseResult.apps,
+    apps: normalizeOutputKeys(preciseResult.apps),
   };
   writeFile(PATHS.preciseRules, JSON.stringify(preciseSub));
   writeFile(PATHS.preciseVersion, JSON.stringify({ id: preciseSub.id, version }));

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-22T08:58:20.172Z",
+  "generatedAt": "2026-11-23T08:38:47.342Z",
   "sources": {
     "ganlin": {
       "version": 72,
@@ -1681,7 +1681,7 @@
       ]
     },
     "linarm": {
-      "version": 641,
+      "version": 642,
       "groups": [
         "com.cto51.student|b427241ab526e46e",
         "com.fiveplay|da26c19337080ca5",
@@ -1806,7 +1806,7 @@
         "com.rosan.installer.x|9f5edaf06617d691",
         "com.rosan.installer.x.revived|9f5edaf06617d691",
         "com.rosan.installer.x.revived|b52248cac5ffca40",
-        "xxx.pornhub.fuck|ade7596234dfe147",
+        "xxx.pornhub.fuck|1665a283824502f9",
         "com.jiaohua_browser|e437d2dde4e2675c",
         "com.jiaohua_browser|3ea3be7db4ddb09a",
         "com.jiaohua_browser|9f5edaf06617d691",
@@ -2820,6 +2820,7 @@
         "com.quark.browser|545d59aeb7c6e6b7",
         "com.quark.browser|89bb27b0161436b4",
         "com.kuaiduizuoye.scan|bf6b2218f7d53254",
+        "com.kuaiduizuoye.scan|f5b1467440f0d64b",
         "com.kuaikan.comic|be26b62e4fa40a9e",
         "com.kkeji.news.client|37d8e9c50e6c4cc3",
         "world.letsgo.booster.android.pro|ab99a2aa55891dd1",
@@ -3595,6 +3596,7 @@
         "com.dz.xmbnxj|80962913399068c1",
         "com.vson.smarthome|08dc6d2558e1ec3c",
         "com.mi.earphone|869e1dcd94acd86c",
+        "com.xiaomi.xmsf|0390bc31d50d25eb",
         "com.miui.huanji|cda1a43ddd9de81c",
         "com.xiaomi.bluetooth|fc5102c956845031",
         "com.android.browser|2aa9324f3db33247",
@@ -10498,7 +10500,7 @@
       ]
     },
     "gh_lenoreric_gk_lemon_d": {
-      "version": 56,
+      "version": 59,
       "groups": [
         "com.google.android.youtube|38678fffb0b397aa",
         "tv.danmaku.bili|1c0764629165c37d",
@@ -10506,7 +10508,7 @@
         "com.tencent.wework|75138a8970ef87c6",
         "com.tencent.wework|30b6f6a02eb1757d",
         "com.tencent.wework|d57e5b08fd518aff",
-        "com.android.settings|0f8525d86674acbe",
+        "com.android.settings|6cce96e6ed025861",
         "com.taobao.taobao|d76073f44c3fb508",
         "com.taobao.taobao|c106cbd927339b51",
         "com.taobao.taobao|a1d304317a369407",

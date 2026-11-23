@@ -1,10 +1,10 @@
 # GKD 全站动态订阅检测报告
 
-生成时间：2026-11-22T08:58:20.169Z
+生成时间：2026-11-23T08:38:47.338Z
 
 ## 一、本周源发现与自动降级
 
-扫描 GitHub 仓库 **199** 个，社区名单种子 5 个，仓库级初筛 135 个，规则文件校验通过 12 个，最终纳入 **12** 个活跃源。
+扫描 GitHub 仓库 **200** 个，社区名单种子 5 个，仓库级初筛 135 个，规则文件校验通过 12 个，最终纳入 **12** 个活跃源。
 
 本周未发现符合门槛的新源。
 
@@ -14,7 +14,7 @@
 |---|---|---|---|---|---|---|---|---|
 | 甘霖 | 233 ⚠️ | 72 | 610 | 1389 | 104 | 1987 | 98 | 核心 |
 | 奥怪 | 86 | 89 | 72 | 280 | 4 | 645 | 98 | 核心 |
-| Lin-arm | 667 | 641 | 1009 | 2527 | 2523 | 3988 | 90 | 核心 |
+| Lin-arm | 667 | 642 | 1010 | 2529 | 2525 | 3990 | 90 | 核心 |
 | MengNianxiaoyao/gkd-subscription | 1 | 79 | 285 | 870 | 59 | 1482 | 87 | GitHub发现 |
 | Lin-arm/gkd-Rules | 777 | 129 | 33 | 195 | 117 | 462 | 78 | GitHub发现 |
 | AIsouler/gkd-subscription | 404 | 124 | 76 | 240 | 240 | 328 | 75 | GitHub发现 |
@@ -22,7 +22,7 @@
 | oklazeno/gkd-subscription | 72 | 1 | 1036 | 3337 | 2663 | 5206 | 64 | GitHub发现 |
 | mrlctate/gkd-mrlc | 2 | 75 | 693 | 1505 | 69 | 2446 | 62 | GitHub发现 |
 | cjy0812/Ling033_GKD_Rules | 233 ⚠️ | 16 | 12 | 41 | 41 | 69 | 53 | GitHub发现 |
-| LenorEric/GK-Lemon-D | 250 | 56 | 14 | 26 | 25 | 33 | 53 | GitHub发现 |
+| LenorEric/GK-Lemon-D | 250 | 59 | 14 | 26 | 25 | 33 | 53 | GitHub发现 |
 | timyang2005/gkd-merged-subscription | 999001 | 2 | 886 | 2074 | 2074 | 3213 | 51 | GitHub发现 |
 
 > ⚠️ 表示上游订阅 ID 撞号（不影响本仓库产物：三档订阅 ID 990667/990668/990669 独立且唯一）。
@@ -33,7 +33,7 @@
 |---|---|---|
 | 甘霖 | 0 | 0 |
 | 奥怪 | 0 | 0 |
-| Lin-arm | 0 | 0 |
+| Lin-arm | 3 | 1 |
 | MengNianxiaoyao/gkd-subscription | 0 | 0 |
 | Lin-arm/gkd-Rules | 0 | 0 |
 | AIsouler/gkd-subscription | 0 | 0 |
@@ -41,18 +41,23 @@
 | oklazeno/gkd-subscription | 0 | 0 |
 | mrlctate/gkd-mrlc | 0 | 0 |
 | cjy0812/Ling033_GKD_Rules | 0 | 0 |
-| LenorEric/GK-Lemon-D | 0 | 0 |
+| LenorEric/GK-Lemon-D | 1 | 1 |
 | timyang2005/gkd-merged-subscription | 0 | 0 |
 
 ## 四、本周新增且不重复的规则
 
-本周无新增的独有规则。
+共 4 条来自单一源的新规则（其他源均无相同规则）：
+
+- **Lin-arm** · JavDB · 通知提示-公告弹窗 `xxx.pornhub.fuck`
+- **Lin-arm** · 快对AI · 局部广告-讲解视频浮窗 `com.kuaiduizuoye.scan`
+- **Lin-arm** · 小米服务框架 · 权限提示-b站申请通知权限 `com.xiaomi.xmsf`
+- **LenorEric/GK-Lemon-D** · 设置 · 功能类-快速开启无障碍 `com.android.settings`
 
 ## 五、各源当前独有规则数
 
 - 甘霖：528 条
 - 奥怪：4 条
-- Lin-arm：198 条
+- Lin-arm：201 条
 - MengNianxiaoyao/gkd-subscription：68 条
 - Lin-arm/gkd-Rules：182 条
 - AIsouler/gkd-subscription：153 条
@@ -69,9 +74,9 @@
 
 | 产物 | 应用数 | 规则组数 | 说明 |
 |---|---|---|---|
-| 全站合并全量 | 1094 | 5577 | 仅按内容指纹去重 |
-| 全站去重精选 | 564 | 1773 | 只保留跨源唯一规则 |
-| **全站精准去重** | 1094 | 3676 | 语义级去重，推荐导入 |
+| 全站合并全量 | 1095 | 5580 | 仅按内容指纹去重 |
+| 全站去重精选 | 565 | 1776 | 只保留跨源唯一规则 |
+| **全站精准去重** | 1095 | 3678 | 语义级去重，推荐导入 |
 
 精准去重策略：同一广告只保留一份；小米系统应用优先奥怪版本，其余按「热度 + 活跃度 + 规则规模」评分选保留源；并合并各源独有选择器以防漏杀。
 

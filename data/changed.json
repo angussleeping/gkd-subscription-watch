@@ -1,14 +1,14 @@
 {
-  "date": "2026-11-22",
+  "date": "2026-11-23",
   "isFirstRun": false,
-  "changed": false,
-  "newUnique": 0,
+  "changed": true,
+  "newUnique": 4,
   "newSources": [],
   "droppedSources": [],
   "added": {
     "ganlin": 0,
     "aoguai": 0,
-    "linarm": 0,
+    "linarm": 3,
     "gh_mengnianxiaoyao_gkd_subscription": 0,
     "gh_lin_arm_gkd_rules": 0,
     "gh_aisouler_gkd_subscription": 0,
@@ -16,13 +16,13 @@
     "gh_oklazeno_gkd_subscription": 0,
     "gh_mrlctate_gkd_mrlc": 0,
     "gh_cjy0812_ling033_gkd_rules": 0,
-    "gh_lenoreric_gk_lemon_d": 0,
+    "gh_lenoreric_gk_lemon_d": 1,
     "gh_timyang2005_gkd_merged_subscription": 0
   },
   "removed": {
     "ganlin": 0,
     "aoguai": 0,
-    "linarm": 0,
+    "linarm": 1,
     "gh_mengnianxiaoyao_gkd_subscription": 0,
     "gh_lin_arm_gkd_rules": 0,
     "gh_aisouler_gkd_subscription": 0,
@@ -30,7 +30,7 @@
     "gh_oklazeno_gkd_subscription": 0,
     "gh_mrlctate_gkd_mrlc": 0,
     "gh_cjy0812_ling033_gkd_rules": 0,
-    "gh_lenoreric_gk_lemon_d": 0,
+    "gh_lenoreric_gk_lemon_d": 1,
     "gh_timyang2005_gkd_merged_subscription": 0
   }
 }

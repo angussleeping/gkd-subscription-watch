@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { OUTPUT_SUBSCRIPTION, REPO, PATHS } from './config.mjs';
-import { fetchWithFallback, parseSubscription, stats } from './lib.mjs';
+import { FINGERPRINT_VERSION, fetchWithFallback, normalizeOutputGroups, parseSubscription, stats } from './lib.mjs';
 import { discoverSources } from './discover.mjs';
 import { buildPrecise } from './precise.mjs';
 
@@ -21,15 +21,6 @@ function writeFile(rel, content) {
 }
 
 function groupKey(appId, fp) { return `${appId}|${fp}`; }
-
-// GKD 要求规则组 key 为整数，且同一订阅内唯一。生成产物时统一重新编号。
-function normalizeOutputKeys(apps) {
-  let n = 1;
-  for (const app of apps) {
-    for (const g of app.groups) g.key = n++;
-  }
-  return apps;
-}
 
 function nowISO() { return new Date().toISOString(); }
 function today() { return new Date().toISOString().slice(0, 10); }
@@ -75,13 +66,14 @@ async function main() {
   // 4. 读取基线并计算每源变化
   const baseline = readJSON(PATHS.baseline, null);
   const isFirstRun = !baseline;
+  const isBaselineReset = !isFirstRun && baseline.fingerprintVersion !== FINGERPRINT_VERSION;
   const changes = {};
   for (const s of sources) {
     const currentKeys = new Set();
     for (const [appId, app] of subs[s.key].apps) {
       for (const g of app.groups) currentKeys.add(groupKey(appId, g.fingerprint));
     }
-    const prevKeys = new Set((baseline?.sources?.[s.key]?.groups) || []);
+    const prevKeys = new Set(isBaselineReset ? currentKeys : (baseline?.sources?.[s.key]?.groups || []));
     changes[s.key] = {
       added: [...currentKeys].filter(k => !prevKeys.has(k)),
       removed: [...prevKeys].filter(k => !currentKeys.has(k)),
@@ -128,7 +120,7 @@ async function main() {
     version,
     author: OUTPUT_SUBSCRIPTION.author,
     checkUpdateUrl: OUTPUT_SUBSCRIPTION.checkUpdateUrl,
-    apps: normalizeOutputKeys([...uniqueApps.values()]),
+    apps: normalizeOutputGroups([...uniqueApps.values()]),
   };
   writeFile(PATHS.uniqueRules, JSON.stringify(uniqueSub));
   writeFile(PATHS.uniqueVersion, JSON.stringify({ id: uniqueSub.id, version }));
@@ -154,7 +146,7 @@ async function main() {
     name: 'GKD 全站动态合并全量',
     version,
     author: OUTPUT_SUBSCRIPTION.author,
-    apps: normalizeOutputKeys([...mergedApps.values()]),
+    apps: normalizeOutputGroups([...mergedApps.values()]),
   };
   writeFile(PATHS.merged, JSON.stringify(mergedSub));
 
@@ -166,7 +158,7 @@ async function main() {
     version,
     author: OUTPUT_SUBSCRIPTION.author,
     checkUpdateUrl: './precise.version.json5',
-    apps: normalizeOutputKeys(preciseResult.apps),
+    apps: normalizeOutputGroups(preciseResult.apps),
   };
   writeFile(PATHS.preciseRules, JSON.stringify(preciseSub));
   writeFile(PATHS.preciseVersion, JSON.stringify({ id: preciseSub.id, version }));
@@ -229,6 +221,8 @@ async function main() {
   lines.push('');
   if (isFirstRun) {
     lines.push('> 首次运行，已建立基线快照。下周起将报告精确的新增/删除规则。');
+  } else if (isBaselineReset) {
+    lines.push('> 指纹算法已升级，本周重新建立基线；历史规则不计为新增或删除。');
   } else {
     lines.push('| 订阅 | 新增规则组 | 删除规则组 |');
     lines.push('|---|---|---|');
@@ -242,7 +236,7 @@ async function main() {
     lines.push('');
   }
   if (!newUnique.length) {
-    lines.push(isFirstRun ? '> 首次运行无对比基线，暂不列出。' : '本周无新增的独有规则。');
+    lines.push(isFirstRun ? '> 首次运行无对比基线，暂不列出。' : isBaselineReset ? '> 指纹算法升级，本周重建基线，暂不列出。' : '本周无新增的独有规则。');
   } else {
     lines.push(`共 ${newUnique.length} 条来自单一源的新规则（其他源均无相同规则）：`);
     lines.push('');
@@ -267,7 +261,7 @@ async function main() {
   lines.push(`| 全站去重精选 | ${uniqueApps.size} | ${uniqueSub.apps.reduce((s, a) => s + a.groups.length, 0)} | 只保留跨源唯一规则 |`);
   lines.push(`| **全站精准去重** | ${preciseResult.apps.length} | ${preciseGroups} | 语义级去重，推荐导入 |`);
   lines.push('');
-  lines.push('精准去重策略：同一广告只保留一份；小米系统应用优先奥怪版本，其余按「热度 + 活跃度 + 规则规模」评分选保留源；并合并各源独有选择器以防漏杀。');
+  lines.push('精准去重策略：仅在组级配置兼容时合并同一广告的独有选择器，含组内规则引用的组完整独立保留；小米系统应用优先奥怪版本，其余按「热度 + 活跃度 + 规则规模」评分选保留源。');
   lines.push('');
   lines.push('## 七、产物说明');
   lines.push('');
@@ -290,7 +284,7 @@ async function main() {
   writeFile(`${PATHS.reportArchiveDir}/${today()}.md`, lines.join('\n'));
 
   // 10. 更新基线
-  const newBaseline = { generatedAt: nowISO(), sources: {} };
+  const newBaseline = { generatedAt: nowISO(), fingerprintVersion: FINGERPRINT_VERSION, sources: {} };
   for (const s of sources) {
     newBaseline.sources[s.key] = { version: subs[s.key].version, groups: changes[s.key].current };
   }
@@ -298,7 +292,8 @@ async function main() {
   writeFile(PATHS.changed, JSON.stringify({
     date: today(),
     isFirstRun,
-    changed: isFirstRun || newUnique.length > 0 || discovery.newSources.length > 0 || discovery.droppedSources.length > 0 ||
+    baselineReset: isBaselineReset,
+    changed: isFirstRun || isBaselineReset || newUnique.length > 0 || discovery.newSources.length > 0 || discovery.droppedSources.length > 0 ||
       sources.some(s => changes[s.key].added.length || changes[s.key].removed.length),
     newUnique: newUnique.length,
     newSources: discovery.newSources.map(s => ({

@@ -9,6 +9,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: gkd-subscription-watch-weekly
+  cancel-in-progress: false
+
 jobs:
   detect:
     runs-on: ubuntu-latest
@@ -22,12 +26,18 @@ jobs:
           node-version: '20'
 
       - name: 安装依赖
-        run: npm install --silent
+        run: npm ci --silent
+
+      - name: 运行单元测试
+        run: npm test
 
       - name: 运行全站检测脚本
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: node scripts/main.mjs
+
+      - name: 使用 GKD 官方规则校验产物
+        run: npm run check
 
       - name: 输出源发现摘要
         run: |

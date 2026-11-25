@@ -1,6 +1,6 @@
 import path from 'node:path';
 import { SOURCES, REPO, PATHS } from './config.mjs';
-import { hash } from './lib.mjs';
+import { groupScopeFingerprint, ruleFingerprint } from './lib.mjs';
 
 // 判断是否为小米系统应用（这类应用优先保留奥怪的精简规则）
 function isMiSystemApp(appId) {
@@ -34,16 +34,13 @@ function normalizeGroupName(name) {
     .trim();
 }
 
-// 规则条目指纹（用于合并时去重选择器）
-function ruleFingerprint(rule) {
-  if (typeof rule === 'string') return `s:${rule}`;
-  const core = {
-    activityIds: rule.activityIds || '',
-    matches: rule.matches || '',
-    excludeMatches: rule.excludeMatches || '',
-    action: rule.action,
-  };
-  return hash(core);
+// 带规则 key 或关联字段的组只按完整指纹去重，避免跨组合并破坏组内引用。
+function hasRuleKeys(group) {
+  const rules = Array.isArray(group.rules) ? group.rules : [group.rules].filter(Boolean);
+  return rules.some(r => r && typeof r === 'object' && (
+    r.key !== undefined || r.preKeys !== undefined ||
+    r.actionCdKey !== undefined || r.actionMaximumKey !== undefined
+  ));
 }
 
 // 库优先级：小米系统应用奥怪优先，其余按动态评分（热度+活跃度+规则规模）排序
@@ -83,7 +80,7 @@ export function buildPrecise(subs, sources = SOURCES) {
         }
         for (const k of keys) {
           if (!buckets.has(k)) buckets.set(k, []);
-          buckets.get(k).push({ sourceKey: s.key, appId, appName: app.name, group: g });
+          buckets.get(k).push({ sourceKey: s.key, appId, appName: app.name, appEnable: app.enable, group: g });
         }
       }
     }
@@ -127,37 +124,46 @@ export function buildPrecise(subs, sources = SOURCES) {
   }
 
   for (const list of clusters.values()) {
-    // 全部属于同一应用（语义键含appId）
     const appId = list[0].appId;
     const appName = list[0].appName;
-    // 选最优库：按rank排序，取rank最小的作为保留源
-    const sorted = [...list].sort((a, b) => rank(a.sourceKey, appId) - rank(b.sourceKey, appId));
-    const keeper = sorted[0];
-    dedupCount += list.length - 1;
 
-    // 以保留组的规则为基础，合并其他库的独有规则条目（按内容指纹去重）
-    const base = keeper.group.raw;
-    const rules = Array.isArray(base.rules) ? [...base.rules] : (base.rules ? [base.rules] : []);
-    const seenRules = new Set(rules.map(ruleFingerprint));
-    for (const item of sorted.slice(1)) {
-      const other = item.group.raw;
-      const otherRules = Array.isArray(other.rules) ? other.rules : (other.rules ? [other.rules] : []);
-      for (const r of otherRules) {
-        const fp = ruleFingerprint(r);
-        if (!seenRules.has(fp)) { rules.push(r); seenRules.add(fp); }
-      }
+    // 只在组级配置一致时合并规则；含组内引用的组必须完整保留。
+    const compatibleBuckets = new Map();
+    for (const item of list) {
+      const scope = groupScopeFingerprint(item.group.raw);
+      const compatibilityKey = hasRuleKeys(item.group.raw)
+        ? `${scope}:${item.group.fingerprint}`
+        : scope;
+      if (!compatibleBuckets.has(compatibilityKey)) compatibleBuckets.set(compatibilityKey, []);
+      compatibleBuckets.get(compatibilityKey).push(item);
     }
-    mergedGroups++;
 
-    if (!mergedApps.has(appId)) mergedApps.set(appId, { id: appId, name: appName, enable: true, groups: [] });
-    const outGroup = { ...base };
-    outGroup.key = `${keeper.sourceKey}-${keeper.group.key ?? 0}`;
-    outGroup.name = keeper.group.name || base.name || '';
-    outGroup.rules = rules;
-    // 合并快照URL
-    const allSnaps = new Set();
-    for (const item of list) for (const fp of snapshotIds(item.group.raw)) allSnaps.add(fp);
-    mergedApps.get(appId).groups.push(outGroup);
+    for (const compatibleList of compatibleBuckets.values()) {
+      const sorted = [...compatibleList].sort((a, b) => rank(a.sourceKey, appId) - rank(b.sourceKey, appId));
+      const keeper = sorted[0];
+      dedupCount += sorted.length - 1;
+
+      const base = keeper.group.raw;
+      const rules = Array.isArray(base.rules) ? [...base.rules] : (base.rules ? [base.rules] : []);
+      const seenRules = new Set(rules.map(ruleFingerprint));
+      for (const item of sorted.slice(1)) {
+        const other = item.group.raw;
+        const otherRules = Array.isArray(other.rules) ? other.rules : (other.rules ? [other.rules] : []);
+        for (const r of otherRules) {
+          const fp = ruleFingerprint(r);
+          if (!seenRules.has(fp)) { rules.push(r); seenRules.add(fp); }
+        }
+      }
+      mergedGroups++;
+
+      if (!mergedApps.has(appId)) mergedApps.set(appId, { id: appId, name: appName, enable: true, groups: [] });
+      const outGroup = { ...base };
+      outGroup.key = `${keeper.sourceKey}-${keeper.group.key ?? 0}`;
+      outGroup.name = keeper.group.name || base.name || '';
+      outGroup.enable = keeper.group.enable && keeper.appEnable;
+      outGroup.rules = rules;
+      mergedApps.get(appId).groups.push(outGroup);
+    }
   }
 
   // 补充：完全没有任何语义键的组（理论上不存在，防御性）

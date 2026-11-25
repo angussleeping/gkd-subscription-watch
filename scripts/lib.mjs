@@ -24,31 +24,82 @@ export function hash(value) {
     .slice(0, 16);
 }
 
-// 规范化 rules：GKD 允许 rules 为对象数组，也允许简写为单个选择器字符串
+export const FINGERPRINT_VERSION = 2;
+
+// 仅忽略展示元数据，保留所有可能影响匹配或执行行为的字段。
+function normalizeRule(rule) {
+  if (typeof rule === 'string') return { selector: rule };
+  if (!rule || typeof rule !== 'object' || Array.isArray(rule)) return rule;
+  const { name, desc, enable, order, snapshotUrls, exampleUrls, ...core } = rule;
+  return {
+    ...core,
+    activityIds: rule.activityIds || [],
+    excludeActivityIds: rule.excludeActivityIds || [],
+    matches: rule.matches || [],
+    excludeMatches: rule.excludeMatches || [],
+  };
+}
+
+// GKD 允许 rules 为对象数组，也允许简写为单个选择器字符串。
 function normalizeRules(rules) {
   if (rules === undefined || rules === null) return [];
-  if (typeof rules === 'string') return [{ selector: rules }];
-  if (!Array.isArray(rules)) return [rules];
-  return rules.map(r => {
-    if (typeof r === 'string') return { selector: r };
-    if (!r || typeof r !== 'object') return r;
-    return {
-      action: r.action,
-      matches: r.matches || [],
-      excludeMatches: r.excludeMatches || [],
-      ...(r.selector ? { selector: r.selector } : {}),
-    };
+  const items = typeof rules === 'string' || !Array.isArray(rules) ? [rules] : rules;
+  return items.map(normalizeRule);
+}
+
+// 组级配置决定其中规则的适用范围，不同配置不能安全地交叉合并规则。
+export function groupScopeFingerprint(group) {
+  const { key, name, desc, enable, order, snapshotUrls, exampleUrls, rules, ...core } = group;
+  return hash({
+    ...core,
+    activityIds: group.activityIds || [],
+    excludeActivityIds: group.excludeActivityIds || [],
   });
 }
 
-// 提取一个规则组的核心匹配指纹（忽略名称、key、order、快照URL等非逻辑字段）
+// 提取规则组完整逻辑指纹，忽略名称、组 key、顺序和快照链接等元数据。
 export function groupFingerprint(group) {
-  const core = {
+  const { key, name, desc, enable, order, snapshotUrls, exampleUrls, rules, ...core } = group;
+  return hash({
+    ...core,
     activityIds: group.activityIds || [],
     excludeActivityIds: group.excludeActivityIds || [],
-    rules: normalizeRules(group.rules),
-  };
-  return hash(core);
+    rules: normalizeRules(rules),
+  });
+}
+
+export function ruleFingerprint(rule) {
+  return hash(normalizeRule(rule));
+}
+
+// GKD 要求组 key 为整数且全局唯一，同一应用内的组名也不能重复。
+export function normalizeOutputGroups(apps) {
+  let nextKey = 1;
+  for (const app of apps) {
+    const names = new Set();
+    for (const group of app.groups) {
+      group.key = nextKey++;
+      const baseName = group.name || '未命名规则组';
+      let name = baseName;
+      let suffix = 2;
+      while (names.has(name)) name = `${baseName} (${suffix++})`;
+      group.name = name;
+      names.add(name);
+
+      const ruleNames = new Set();
+      const rules = Array.isArray(group.rules) ? group.rules : [group.rules].filter(Boolean);
+      for (const rule of rules) {
+        if (!rule || typeof rule !== 'object' || !rule.name) continue;
+        const baseRuleName = rule.name;
+        let ruleName = baseRuleName;
+        let ruleSuffix = 2;
+        while (ruleNames.has(ruleName)) ruleName = `${baseRuleName} (${ruleSuffix++})`;
+        rule.name = ruleName;
+        ruleNames.add(ruleName);
+      }
+    }
+  }
+  return apps;
 }
 
 export function parseSubscription(raw) {

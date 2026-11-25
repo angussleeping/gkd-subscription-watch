@@ -37,6 +37,18 @@ export const CORE_SOURCES = [
     ],
     core: true,
   },
+  {
+    key: 'ckylinmc',
+    id: 5506,
+    name: 'CKylinMC 补充规则',
+    fullName: 'CKylinMC/gkd-rule-extras',
+    url: 'https://raw.githubusercontent.com/CKylinMC/gkd-rule-extras/main/dist/cky-gkd-rules.json',
+    fallbacks: [
+      'https://cdn.jsdelivr.net/gh/CKylinMC/gkd-rule-extras@main/dist/cky-gkd-rules.json',
+      'https://jsd.admincdn.com/gh/CKylinMC/gkd-rule-extras@main/dist/cky-gkd-rules.json',
+    ],
+    core: true,
+  },
 ];
 
 // 动态发现参数
@@ -44,6 +56,7 @@ export const DISCOVERY = {
   // GitHub 搜索查询（每周自动执行）
   queries: [
     'gkd subscription in:name,description stars:>=10 archived:false',
+    'gkd_subscription in:name stars:>=10 archived:false',
     'gkd 订阅 in:name,description archived:false',
     'gkd rules in:name,description stars:>=10 archived:false',
     'gkd 规则 in:name,description,readme stars:>=10 archived:false',

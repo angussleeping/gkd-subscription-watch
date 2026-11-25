@@ -219,13 +219,14 @@ export async function discoverSources(prev) {
   console.log(`[验证] 抓取并校验 ${pending.length} 个候选订阅文件...`);
   const checked = await mapLimit(pending, 5, async c => {
     let branch = c.branch, filePath = c.path;
-    if (!branch || !filePath) {
+    const legacy = CORE_SOURCES.find(x => x.fullName === c.fullName);
+    // 核心源已有经过验证的直链，无需受通用文件路径规则限制。
+    if (!legacy && (!branch || !filePath)) {
       const probed = await probePath(c.fullName, branch);
       if (probed.archived) return { ...c, error: '仓库已归档' };
       branch = probed.branch; filePath = probed.path;
     }
-    if (!filePath) return { ...c, error: '未找到订阅文件' };
-    const legacy = CORE_SOURCES.find(x => x.fullName === c.fullName);
+    if (!legacy && !filePath) return { ...c, error: '未找到订阅文件' };
     const urls = legacy ? [legacy.url, ...legacy.fallbacks] : urlsFor(c.fullName, branch, filePath);
     const source = {
       key: legacy?.key || sourceKey(c.fullName),

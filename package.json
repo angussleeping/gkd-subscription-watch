@@ -4,9 +4,14 @@
   "description": "每周扫描 GitHub 全站 GKD 订阅，动态发现新源、自动降级归档源，生成精准去重规则与差异报告",
   "type": "module",
   "scripts": {
-    "start": "node scripts/main.mjs"
+    "start": "node scripts/main.mjs",
+    "test": "node --test scripts/rules.test.mjs",
+    "check": "node scripts/check.mjs"
   },
   "dependencies": {
     "json5": "^2.2.3"
+  },
+  "devDependencies": {
+    "@gkd-kit/tools": "^0.8.0"
   }
 }

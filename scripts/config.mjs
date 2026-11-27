@@ -83,6 +83,9 @@ export const DISCOVERY = {
   pathExclude: /version|\.min\.|beta|library|selectors?\.subscription|globalGroups/i,
 };
 
+// 产出去重算法版本：算法或产物结构有重大升级时递增，用于强制发布新版本
+export const OUTPUT_VERSION = 2;
+
 // 生成的去重订阅标识（ID 保持不变，确保用户已导入的订阅继续收到更新）
 export const OUTPUT_SUBSCRIPTION = {
   id: 990667,

@@ -1,6 +1,5 @@
-import path from 'node:path';
-import { SOURCES, REPO, PATHS } from './config.mjs';
-import { groupScopeFingerprint, ruleFingerprint } from './lib.mjs';
+import { SOURCES } from './config.mjs';
+import { consolidateGroups, groupScopeFingerprint, normalizeGroupName, ruleFingerprint } from './lib.mjs';
 
 // 判断是否为小米系统应用（这类应用优先保留奥怪的精简规则）
 function isMiSystemApp(appId) {
@@ -22,16 +21,6 @@ function snapshotIds(group) {
     }
   }
   return [...ids].sort();
-}
-
-// 规范化组名：用于无快照时的辅助语义键
-function normalizeGroupName(name) {
-  if (!name) return '';
-  return name
-    .replace(/\[[^\]]*\]/g, '')       // 去方括号补充
-    .replace(/[（(][^）)]*[）)]/g, '') // 去括号补充
-    .replace(/[\s\-—－_:：]/g, '')    // 去分隔与空白
-    .trim();
 }
 
 // 带规则 key 或关联字段的组只按完整指纹去重，避免跨组合并破坏组内引用。
@@ -166,10 +155,15 @@ export function buildPrecise(subs, sources = SOURCES) {
     }
   }
 
+  // 名称级二次合并：各源对同一广告的规则集常略有差异（选择器补丁、key 编号不同），
+  // 仅靠快照+范围指纹仍会留下同名重复组，这里按“同应用同名”再合并一次。
+  const consolidated = consolidateGroups([...mergedApps.values()]);
+
   // 补充：完全没有任何语义键的组（理论上不存在，防御性）
   return {
-    apps: [...mergedApps.values()],
+    apps: consolidated.apps,
     dedupCount,
     mergedGroups,
+    consolidatedCount: consolidated.removedGroups,
   };
 }

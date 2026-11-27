@@ -1,10 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
+  consolidateGroups,
+  groupBehaviorFingerprint,
   groupFingerprint,
   groupScopeFingerprint,
   normalizeOutputGroups,
   parseSubscription,
+  ruleContentFingerprint,
 } from './lib.mjs';
 import { buildPrecise } from './precise.mjs';
 
@@ -95,36 +98,102 @@ test('精准去重仅合并同快照且组级配置兼容的规则', () => {
 });
 
 test('组级配置不同的同快照规则不会被拼接', () => {
-  const makeApp = matchTime => appWithGroup({
+  const makeApp = matchRoot => appWithGroup({
     key: 1,
     name: '开屏广告',
     activityIds: ['.Main'],
-    matchTime,
+    matchRoot,
     snapshotUrls: snapshots,
-    rules: [{ matches: [matchTime === 1000 ? 'A' : 'B'] }],
+    rules: [{ matches: [matchRoot ? 'A' : 'B'] }],
   });
   const result = buildPrecise(
-    { a: parsed(makeApp(1000)), b: parsed(makeApp(2000)) },
+    { a: parsed(makeApp(true)), b: parsed(makeApp(false)) },
     [{ key: 'a', score: 90 }, { key: 'b', score: 80 }],
   );
   assert.equal(result.apps[0].groups.length, 2);
   assert.equal(result.apps[0].groups.flatMap(group => group.rules).length, 2);
 });
 
-test('带规则 key 的不同组不会交叉合并', () => {
+test('同名组二次合并会重新编号冲突的规则 key 并修正 preKeys', () => {
   const makeApp = selector => appWithGroup({
     key: 1,
     name: '开屏广告',
     snapshotUrls: snapshots,
-    rules: [{ key: 1, matches: [selector] }],
+    rules: [
+      { key: 0, matches: [selector] },
+      { key: 1, preKeys: [0], matches: [`${selector} > [text="关闭"]`] },
+    ],
   });
   const result = buildPrecise(
     { a: parsed(makeApp('A')), b: parsed(makeApp('B')) },
     [{ key: 'a', score: 90 }, { key: 'b', score: 80 }],
   );
-  assert.equal(result.apps[0].groups.length, 2);
-  for (const group of result.apps[0].groups) assert.equal(group.rules.length, 1);
+  const group = result.apps[0].groups[0];
+  assert.equal(result.apps[0].groups.length, 1);
+  assert.equal(result.consolidatedCount, 1);
+  assert.equal(group.rules.length, 4);
+  const keys = group.rules.map(rule => rule.key);
+  assert.equal(new Set(keys).size, keys.length, '规则 key 必须组内唯一');
+  const keySet = new Set(keys);
+  for (const rule of group.rules) {
+    for (const preKey of rule.preKeys || []) assert.ok(keySet.has(preKey), `preKeys 引用 ${preKey} 不存在`);
+  }
 });
+
+test('规则内容指纹忽略 key 与展示元数据但保留选择器', () => {
+  const a = { key: 0, name: '别名', matches: ['A'], preKeys: [3], snapshotUrls: snapshots };
+  const b = { key: 9, matches: ['A'], preKeys: [7] };
+  const c = { key: 0, matches: ['B'] };
+  assert.equal(ruleContentFingerprint(a), ruleContentFingerprint(b));
+  assert.notEqual(ruleContentFingerprint(a), ruleContentFingerprint(c));
+});
+
+test('同名组合并会并集适用范围并在任一启用时启用', () => {
+  const apps = [
+    {
+      id: 'com.example.app',
+      name: 'Example',
+      enable: true,
+      groups: [
+        { key: 1, name: '广告', enable: false, activityIds: ['.A'], rules: [{ key: 0, matches: ['X'] }] },
+        { key: 2, name: '广告 (2)', enable: true, activityIds: '.B', rules: [{ key: 0, matches: ['Y'] }] },
+      ],
+    },
+  ];
+  const { apps: out, removedGroups } = consolidateGroups(apps);
+  assert.equal(removedGroups, 1);
+  assert.equal(out[0].groups.length, 1);
+  const group = out[0].groups[0];
+  assert.equal(group.name, '广告');
+  assert.equal(group.enable, true);
+  assert.deepEqual(group.activityIds, ['.A', '.B']);
+  assert.equal(group.rules.length, 2);
+});
+
+test('组级行为配置不同的同名组不会被合并', () => {
+  const make = matchRoot => ({
+    id: 'com.example.app',
+    name: 'Example',
+    enable: true,
+    groups: [{ key: 1, name: '广告', matchRoot, rules: [{ matches: ['X'] }] }],
+  });
+  assert.notEqual(groupBehaviorFingerprint(make(true).groups[0]), groupBehaviorFingerprint(make(false).groups[0]));
+  const apps = [
+    {
+      id: 'com.example.app',
+      name: 'Example',
+      enable: true,
+      groups: [
+        { key: 1, name: '广告', matchRoot: true, rules: [{ matches: ['X'] }] },
+        { key: 2, name: '广告 (2)', matchRoot: false, rules: [{ matches: ['Y'] }] },
+      ],
+    },
+  ];
+  const { apps: out, removedGroups } = consolidateGroups(apps);
+  assert.equal(removedGroups, 0);
+  assert.equal(out[0].groups.length, 2);
+});
+
 
 test('精准去重保留上游应用禁用状态', () => {
   const sub = parsed(appWithGroup({ key: 1, name: '广告', rules: [{ matches: ['A'] }] }, false));

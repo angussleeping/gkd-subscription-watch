@@ -1,8 +1,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { OUTPUT_SUBSCRIPTION, REPO, PATHS } from './config.mjs';
-import { FINGERPRINT_VERSION, fetchWithFallback, normalizeOutputGroups, parseSubscription, stats } from './lib.mjs';
+import { OUTPUT_SUBSCRIPTION, OUTPUT_VERSION, REPO, PATHS } from './config.mjs';
+import { FINGERPRINT_VERSION, consolidateGroups, fetchWithFallback, normalizeOutputGroups, parseSubscription, stats } from './lib.mjs';
 import { discoverSources } from './discover.mjs';
 import { buildPrecise } from './precise.mjs';
 
@@ -25,6 +25,24 @@ function groupKey(appId, fp) { return `${appId}|${fp}`; }
 function nowISO() { return new Date().toISOString(); }
 function today() { return new Date().toISOString().slice(0, 10); }
 function st(sub) { return stats(sub); }
+
+// 微信朋友圈、公众号（订阅号）文章广告类规则在上游多被默认关闭，用户反馈“不好用”。
+// 合并后对这类同名广告组统一启用，选择器已取各源并集，覆盖更全。
+function applyWeixinAdEnable(apps) {
+  let changed = 0;
+  const adName = /朋友圈广告|订阅号文章.*广告|公众号.*广告/;
+  for (const app of apps) {
+    if (app.id !== 'com.tencent.mm') continue;
+    for (const group of app.groups) {
+      if (!adName.test(group.name || '')) continue;
+      const rules = Array.isArray(group.rules) ? group.rules : (group.rules ? [group.rules] : []);
+      if (!rules.length) continue;
+      if (!group.enable) changed++;
+      group.enable = true;
+    }
+  }
+  return changed;
+}
 
 async function main() {
   console.log(`[${nowISO()}] 开始全站订阅检测...`);
@@ -65,6 +83,8 @@ async function main() {
 
   // 4. 读取基线并计算每源变化
   const baseline = readJSON(PATHS.baseline, null);
+  const prevChanged = readJSON(PATHS.changed, null);
+  const outputVersionChanged = !prevChanged || prevChanged.outputVersion !== OUTPUT_VERSION;
   const isFirstRun = !baseline;
   const isBaselineReset = !isFirstRun && baseline.fingerprintVersion !== FINGERPRINT_VERSION;
   const changes = {};
@@ -114,13 +134,15 @@ async function main() {
     }
   }
   const version = Number(today().replace(/-/g, ''));
+  const uniqueConsolidated = consolidateGroups([...uniqueApps.values()]);
+  const uniqueWeixinEnabled = applyWeixinAdEnable(uniqueConsolidated.apps);
   const uniqueSub = {
     id: OUTPUT_SUBSCRIPTION.id,
     name: OUTPUT_SUBSCRIPTION.name,
     version,
     author: OUTPUT_SUBSCRIPTION.author,
     checkUpdateUrl: OUTPUT_SUBSCRIPTION.checkUpdateUrl,
-    apps: normalizeOutputGroups([...uniqueApps.values()]),
+    apps: normalizeOutputGroups(uniqueConsolidated.apps),
   };
   writeFile(PATHS.uniqueRules, JSON.stringify(uniqueSub));
   writeFile(PATHS.uniqueVersion, JSON.stringify({ id: uniqueSub.id, version }));
@@ -141,17 +163,20 @@ async function main() {
       }
     }
   }
+  const mergedConsolidated = consolidateGroups([...mergedApps.values()]);
+  const mergedWeixinEnabled = applyWeixinAdEnable(mergedConsolidated.apps);
   const mergedSub = {
     id: OUTPUT_SUBSCRIPTION.id + 1,
     name: 'GKD 全站动态合并全量',
     version,
     author: OUTPUT_SUBSCRIPTION.author,
-    apps: normalizeOutputGroups([...mergedApps.values()]),
+    apps: normalizeOutputGroups(mergedConsolidated.apps),
   };
   writeFile(PATHS.merged, JSON.stringify(mergedSub));
 
   // 8.5 精准去重（快照 ID + 语义名），按动态评分与小米优先策略选保留源
   const preciseResult = buildPrecise(subs, sources);
+  const preciseWeixinEnabled = applyWeixinAdEnable(preciseResult.apps);
   const preciseSub = {
     id: OUTPUT_SUBSCRIPTION.id + 2,
     name: 'GKD 全站动态精准去重',
@@ -253,16 +278,20 @@ async function main() {
   const preciseGroups = preciseResult.apps.reduce((s, a) => s + a.groups.length, 0);
   lines.push('## 六、精准去重结果（推荐）');
   lines.push('');
-  lines.push(`基于「快照图片 ID + 语义组名」识别跨源的同一广告（即使选择器写法不同也能识别），共合并 **${preciseResult.dedupCount}** 条重复规则。`);
+  lines.push(`基于「快照图片 ID + 语义组名」识别跨源的同一广告（即使选择器写法不同也能识别），共合并 **${preciseResult.dedupCount}** 条重复规则；再按「同应用同名」做二次合并，又合并 **${preciseResult.consolidatedCount}** 个同名重复组。`);
   lines.push('');
   lines.push('| 产物 | 应用数 | 规则组数 | 说明 |');
   lines.push('|---|---|---|---|');
-  lines.push(`| 全站合并全量 | ${mergedApps.size} | ${mergedSub.apps.reduce((s, a) => s + a.groups.length, 0)} | 仅按内容指纹去重 |`);
-  lines.push(`| 全站去重精选 | ${uniqueApps.size} | ${uniqueSub.apps.reduce((s, a) => s + a.groups.length, 0)} | 只保留跨源唯一规则 |`);
-  lines.push(`| **全站精准去重** | ${preciseResult.apps.length} | ${preciseGroups} | 语义级去重，推荐导入 |`);
+  lines.push(`| 全站合并全量 | ${mergedApps.size} | ${mergedSub.apps.reduce((s, a) => s + a.groups.length, 0)} | 内容指纹去重 + 同名组二次合并 |`);
+  lines.push(`| 全站去重精选 | ${uniqueApps.size} | ${uniqueSub.apps.reduce((s, a) => s + a.groups.length, 0)} | 只保留跨源唯一规则 + 同名组二次合并 |`);
+  lines.push(`| **全站精准去重** | ${preciseResult.apps.length} | ${preciseGroups} | 语义级去重 + 同名组二次合并，推荐导入 |`);
   lines.push('');
-  lines.push('精准去重策略：仅在组级配置兼容时合并同一广告的独有选择器，含组内规则引用的组完整独立保留；小米系统应用优先奥怪版本，其余按「热度 + 活跃度 + 规则规模」评分选保留源。');
+  lines.push('精准去重策略：先按「快照 ID + 组级适用范围」聚类，再按「同应用同名」二次合并；同名组合并时并集适用范围与规则集，规则 key 冲突自动重编号并修正 preKeys 引用，时序调参（actionMaximum/matchTime 等）取保留组配置，仅 matchRoot 等选择器解析语义不同的组保持独立；小米系统应用优先奥怪版本，其余按「热度 + 活跃度 + 规则规模」评分选保留源。');
   lines.push('');
+  if (preciseWeixinEnabled || uniqueWeixinEnabled || mergedWeixinEnabled) {
+    lines.push(`微信适配：朋友圈/公众号广告类规则在上游多默认关闭，已在合并产物中统一启用（精准版 ${preciseWeixinEnabled} 组、精选版 ${uniqueWeixinEnabled} 组、全量版 ${mergedWeixinEnabled} 组）。`);
+    lines.push('');
+  }
   lines.push('## 七、产物说明');
   lines.push('');
   lines.push('- `dist/precise.json5`：**精准去重订阅（推荐）**，ID 990669');
@@ -291,11 +320,14 @@ async function main() {
   writeFile(PATHS.baseline, JSON.stringify(newBaseline, null, 2));
   writeFile(PATHS.changed, JSON.stringify({
     date: today(),
+    outputVersion: OUTPUT_VERSION,
+    outputVersionChanged,
     isFirstRun,
     baselineReset: isBaselineReset,
-    changed: isFirstRun || isBaselineReset || newUnique.length > 0 || discovery.newSources.length > 0 || discovery.droppedSources.length > 0 ||
+    changed: outputVersionChanged || isFirstRun || isBaselineReset || newUnique.length > 0 || discovery.newSources.length > 0 || discovery.droppedSources.length > 0 ||
       sources.some(s => changes[s.key].added.length || changes[s.key].removed.length),
     newUnique: newUnique.length,
+    consolidated: preciseResult.consolidatedCount,
     newSources: discovery.newSources.map(s => ({
       name: s.name, fullName: s.fullName,
       groups: subs[s.key] ? st(subs[s.key]).groups : 0,
@@ -309,7 +341,8 @@ async function main() {
   console.log('\n=== 完成 ===');
   console.log(`活跃源 ${sources.length} 个，新增 ${discovery.newSources.length}，降级 ${discovery.droppedSources.length}，抓取失败 ${failed.length}`);
   console.log(`新增独有规则: ${newUnique.length}`);
-  console.log(`精准去重: 合并 ${preciseResult.dedupCount} 条重复, 产出 ${preciseGroups} 组`);
+  console.log(`精准去重: 合并 ${preciseResult.dedupCount} 条重复, 同名二次合并 ${preciseResult.consolidatedCount} 组, 产出 ${preciseGroups} 组`);
+  console.log(`微信广告适配: 精准版启用 ${preciseWeixinEnabled} 组, 精选版 ${uniqueWeixinEnabled} 组, 全量版 ${mergedWeixinEnabled} 组`);
   console.log(`产物: ${PATHS.preciseRules}, ${PATHS.uniqueRules}, ${PATHS.merged}, ${PATHS.report}`);
 }
 

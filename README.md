@@ -33,8 +33,11 @@ https://raw.githubusercontent.com/angussleeping/gkd-subscription-watch/main/dist
 https://raw.githubusercontent.com/angussleeping/gkd-subscription-watch/main/dist/merged.json5
 ```
 
-> 国内若 raw.githubusercontent.com 访问慢，可把域名替换为 `raw.gitmirror.com` 或使用 jsDelivr：
-> `https://cdn.jsdelivr.net/gh/angussleeping/gkd-subscription-watch@main/dist/precise.json5`
+> 国内若 raw.githubusercontent.com 访问慢，推荐使用 jsDelivr 的 `@latest`：
+> `https://cdn.jsdelivr.net/gh/angussleeping/gkd-subscription-watch@latest/dist/precise.json5`
+>
+> ⚠️ 不要使用 `@main`：jsDelivr 对分支地址有 12 小时快照缓存，可能导致 GKD 长时间检测不到更新。
+> 也可使用 raw 代理：`https://ghproxy.net/https://raw.githubusercontent.com/angussleeping/gkd-subscription-watch/main/dist/precise.json5`
 
 > 三档订阅 ID 保持为 990669 / 990667 / 990668 不变，你之前导入的订阅会继续收到更新；通常只导入精准版一份即可。
 

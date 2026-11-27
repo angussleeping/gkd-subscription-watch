@@ -61,10 +61,12 @@ jobs:
       - name: 清理 jsDelivr 分支缓存
         if: always()
         run: |
-          # jsDelivr 对 @main 分支地址有 12 小时边缘缓存，不清理会导致用户迟迟检测不到新版本
-          for FILE in precise.json5 precise.version.json5 unique_rules.json5 unique_rules.version.json5 merged.json5; do
-            echo "purge $FILE"
-            curl -sL "https://purge.jsdelivr.net/gh/angussleeping/gkd-subscription-watch@main/dist/$FILE" >/dev/null || true
+          # jsDelivr 对 @main 分支地址有 12 小时快照缓存，不清理会导致用户迟迟检测不到新版本
+          for SPEC in main latest; do
+            for FILE in precise.json5 precise.version.json5 unique_rules.json5 unique_rules.version.json5 merged.json5; do
+              echo "purge @$SPEC/$FILE"
+              curl -sL "https://purge.jsdelivr.net/gh/angussleeping/gkd-subscription-watch@$SPEC/dist/$FILE" >/dev/null || true
+            done
           done
 
       - name: 发布 Release 推送给用户

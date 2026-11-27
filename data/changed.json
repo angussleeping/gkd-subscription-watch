@@ -1,26 +1,23 @@
 {
   "date": "2026-11-27",
-  "outputVersion": 2,
+  "releaseVersion": "2.2",
+  "releaseVersionChanged": true,
+  "outputVersion": 3,
   "outputVersionChanged": true,
   "isFirstRun": false,
   "baselineReset": false,
   "changed": true,
-  "newUnique": 20,
+  "newUnique": 0,
   "consolidated": 1235,
   "newSources": [],
-  "droppedSources": [
-    {
-      "name": "timyang2005/gkd-merged-subscription",
-      "reason": "181 天无更新"
-    }
-  ],
+  "droppedSources": [],
   "added": {
     "ganlin": 0,
     "aoguai": 0,
-    "linarm": 18,
+    "linarm": 0,
     "ckylinmc": 0,
     "gh_mengnianxiaoyao_gkd_subscription": 0,
-    "gh_lin_arm_gkd_rules": 2,
+    "gh_lin_arm_gkd_rules": 0,
     "gh_aisouler_gkd_subscription": 0,
     "gh_oklazeno_gkd_subscription": 0,
     "gh_yanmuq_muqi_gkd": 0,
@@ -31,10 +28,10 @@
   "removed": {
     "ganlin": 0,
     "aoguai": 0,
-    "linarm": 8,
+    "linarm": 0,
     "ckylinmc": 0,
     "gh_mengnianxiaoyao_gkd_subscription": 0,
-    "gh_lin_arm_gkd_rules": 2,
+    "gh_lin_arm_gkd_rules": 0,
     "gh_aisouler_gkd_subscription": 0,
     "gh_oklazeno_gkd_subscription": 0,
     "gh_yanmuq_muqi_gkd": 0,

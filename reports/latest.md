@@ -1,18 +1,13 @@
 # GKD 全站动态订阅检测报告
 
-生成时间：2026-11-27T02:54:35.350Z
+生成时间：2026-11-27T03:11:39.799Z
+版本：v2.2（订阅 version 22200000）
 
 ## 一、本周源发现与自动降级
 
 扫描 GitHub 仓库 **203** 个，社区名单种子 5 个，仓库级初筛 138 个，规则文件校验通过 12 个，最终纳入 **12** 个活跃源。
 
 本周未发现符合门槛的新源。
-
-### 本周降级源（1）
-
-| 订阅 | 原因 |
-|---|---|
-| timyang2005/gkd-merged-subscription | 181 天无更新 |
 
 ## 二、活跃订阅状态
 
@@ -39,10 +34,10 @@
 |---|---|---|
 | 甘霖 | 0 | 0 |
 | 奥怪 | 0 | 0 |
-| Lin-arm | 18 | 8 |
+| Lin-arm | 0 | 0 |
 | CKylinMC 补充规则 | 0 | 0 |
 | MengNianxiaoyao/gkd-subscription | 0 | 0 |
-| Lin-arm/gkd-Rules | 2 | 2 |
+| Lin-arm/gkd-Rules | 0 | 0 |
 | AIsouler/gkd-subscription | 0 | 0 |
 | oklazeno/gkd-subscription | 0 | 0 |
 | yanmuq/muqi_gkd | 0 | 0 |
@@ -52,28 +47,7 @@
 
 ## 四、本周新增且不重复的规则
 
-共 20 条来自单一源的新规则（其他源均无相同规则）：
-
-- **Lin-arm** · GitHub · 功能类-自动批准授权验证 `com.github.android`
-- **Lin-arm** · 测测 · 权限提示-通知权限 `com.xxwolo.cc5`
-- **Lin-arm** · 测测 · 全屏广告-小组件弹窗 `com.xxwolo.cc5`
-- **Lin-arm** · 测测 · 局部广告-右下角浮窗 `com.xxwolo.cc5`
-- **Lin-arm** · 豆瓣 · 开屏广告 `com.douban.frodo`
-- **Lin-arm** · 腾讯文档 · 开屏广告 `com.tencent.docs`
-- **Lin-arm** · 微博 · 全屏广告-小组件弹窗 `com.sina.weibo`
-- **Lin-arm** · 微博 · 全屏广告-发现页弹窗 `com.sina.weibo`
-- **Lin-arm** · 微博 · 其他-关闭关注提示 `com.sina.weibo`
-- **Lin-arm** · 闲鱼 · 功能类-自动点击[查看原图] `com.taobao.idlefish`
-- **Lin-arm** · 小红书 · 权限提示-通知权限 `com.xingin.xhs`
-- **Lin-arm** · 雪球 · 局部广告-信息流广告 `com.xueqiu.android`
-- **Lin-arm** · 雪球 · 局部广告-评论区广告 `com.xueqiu.android`
-- **Lin-arm** · 雪球 · 全屏广告 `com.xueqiu.android`
-- **Lin-arm** · 雪球 · 局部广告 `com.xueqiu.android`
-- **Lin-arm** · 雪球 · 全屏广告-开通股票账户 `com.xueqiu.android`
-- **Lin-arm** · 雪球 · 功能类-自动点击[查看原图] `com.xueqiu.android`
-- **Lin-arm** · 雪球 · 其他-关闭关注Tip `com.xueqiu.android`
-- **Lin-arm/gkd-Rules** · 起点读书 · 功能类-自动[签到]并跳转[福利中心] `com.qidian.QDReader`
-- **Lin-arm/gkd-Rules** · 起点读书 · 功能类-自动[投推荐票]给《观山！》 `com.qidian.QDReader`
+本周无新增的独有规则。
 
 ## 五、各源当前独有规则数
 

@@ -84,15 +84,16 @@ export const DISCOVERY = {
 };
 
 // 产出去重算法版本：算法或产物结构有重大升级时递增，用于强制发布新版本
-export const OUTPUT_VERSION = 3;
+export const OUTPUT_VERSION = 4;
 
-// 语义版本：小更新 +0.1，大更新 +1.0（发布 Release 标签使用 vX.Y）
+// 语义版本基准：小更新 +0.1，大更新 +1.0（发布 Release 标签使用 vX.Y）。
+// 上游内容有变化且此处未手动抬升时，main.mjs 会自动 +0.1；大更新时手动改为 X.0。
 export const RELEASE_VERSION = '2.2';
 
-// GKD 订阅 version 必须为整数；用 20000000 作为基底，确保大于历史日期版本（20261127）才能被判定为升级
+// GKD 订阅 version 必须为整数；用 30000000 作为基底，确保大于历史日期版本与旧编码才能被判定为升级
 export function subscriptionVersion(version = RELEASE_VERSION) {
   const [major, minor] = String(version).split('.').map(Number);
-  return 20000000 + (major || 0) * 1000000 + (minor || 0) * 100000;
+  return 30000000 + (major || 0) * 1000000 + (minor || 0) * 10000;
 }
 
 // 生成的去重订阅标识（ID 保持不变，确保用户已导入的订阅继续收到更新）

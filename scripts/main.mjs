@@ -85,7 +85,6 @@ async function main() {
   const baseline = readJSON(PATHS.baseline, null);
   const prevChanged = readJSON(PATHS.changed, null);
   const outputVersionChanged = !prevChanged || prevChanged.outputVersion !== OUTPUT_VERSION;
-  const releaseVersionChanged = !prevChanged || prevChanged.releaseVersion !== RELEASE_VERSION;
   const isFirstRun = !baseline;
   const isBaselineReset = !isFirstRun && baseline.fingerprintVersion !== FINGERPRINT_VERSION;
   const changes = {};
@@ -134,7 +133,24 @@ async function main() {
       }
     }
   }
-  const version = subscriptionVersion();
+  // 语义版本：配置值为基准；若上游内容变化且配置未手动抬升，则自动 +0.1
+  const contentChanged = isFirstRun || isBaselineReset || newUnique.length > 0 ||
+    discovery.newSources.length > 0 || discovery.droppedSources.length > 0 ||
+    sources.some(s => changes[s.key].added.length || changes[s.key].removed.length);
+  const [cfgMajor, cfgMinor] = RELEASE_VERSION.split('.').map(Number);
+  let relMajor = cfgMajor;
+  let relMinor = cfgMinor;
+  if (prevChanged?.releaseVersion) {
+    const [prevMajor, prevMinor] = String(prevChanged.releaseVersion).split('.').map(Number);
+    // 上次版本不低于配置值，说明配置未手动抬升：沿用上次，内容变化时自动 +0.1
+    if (prevMajor > relMajor || (prevMajor === relMajor && prevMinor >= relMinor)) {
+      relMajor = prevMajor;
+      relMinor = prevMinor + (contentChanged ? 1 : 0);
+    }
+  }
+  const effectiveReleaseVersion = `${relMajor}.${relMinor}`;
+  const releaseVersionChanged = prevChanged?.releaseVersion !== effectiveReleaseVersion;
+  const version = subscriptionVersion(effectiveReleaseVersion);
   const uniqueConsolidated = consolidateGroups([...uniqueApps.values()]);
   const uniqueWeixinEnabled = applyWeixinAdEnable(uniqueConsolidated.apps);
   const uniqueSub = {
@@ -194,7 +210,7 @@ async function main() {
   lines.push('# GKD 全站动态订阅检测报告');
   lines.push('');
   lines.push(`生成时间：${nowISO()}`);
-  lines.push(`版本：v${RELEASE_VERSION}（订阅 version ${version}）`);
+  lines.push(`版本：v${effectiveReleaseVersion}（订阅 version ${version}）`);
   lines.push('');
   lines.push('## 一、本周源发现与自动降级');
   lines.push('');
@@ -322,14 +338,13 @@ async function main() {
   writeFile(PATHS.baseline, JSON.stringify(newBaseline, null, 2));
   writeFile(PATHS.changed, JSON.stringify({
     date: today(),
-    releaseVersion: RELEASE_VERSION,
+    releaseVersion: effectiveReleaseVersion,
     releaseVersionChanged,
     outputVersion: OUTPUT_VERSION,
     outputVersionChanged,
     isFirstRun,
     baselineReset: isBaselineReset,
-    changed: releaseVersionChanged || outputVersionChanged || isFirstRun || isBaselineReset || newUnique.length > 0 || discovery.newSources.length > 0 || discovery.droppedSources.length > 0 ||
-      sources.some(s => changes[s.key].added.length || changes[s.key].removed.length),
+    changed: releaseVersionChanged || outputVersionChanged || contentChanged,
     newUnique: newUnique.length,
     consolidated: preciseResult.consolidatedCount,
     newSources: discovery.newSources.map(s => ({

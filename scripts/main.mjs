@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { OUTPUT_SUBSCRIPTION, OUTPUT_VERSION, REPO, PATHS } from './config.mjs';
+import { OUTPUT_SUBSCRIPTION, OUTPUT_VERSION, RELEASE_VERSION, REPO, PATHS, subscriptionVersion } from './config.mjs';
 import { FINGERPRINT_VERSION, consolidateGroups, fetchWithFallback, normalizeOutputGroups, parseSubscription, stats } from './lib.mjs';
 import { discoverSources } from './discover.mjs';
 import { buildPrecise } from './precise.mjs';
@@ -85,6 +85,7 @@ async function main() {
   const baseline = readJSON(PATHS.baseline, null);
   const prevChanged = readJSON(PATHS.changed, null);
   const outputVersionChanged = !prevChanged || prevChanged.outputVersion !== OUTPUT_VERSION;
+  const releaseVersionChanged = !prevChanged || prevChanged.releaseVersion !== RELEASE_VERSION;
   const isFirstRun = !baseline;
   const isBaselineReset = !isFirstRun && baseline.fingerprintVersion !== FINGERPRINT_VERSION;
   const changes = {};
@@ -133,7 +134,7 @@ async function main() {
       }
     }
   }
-  const version = Number(today().replace(/-/g, ''));
+  const version = subscriptionVersion();
   const uniqueConsolidated = consolidateGroups([...uniqueApps.values()]);
   const uniqueWeixinEnabled = applyWeixinAdEnable(uniqueConsolidated.apps);
   const uniqueSub = {
@@ -193,6 +194,7 @@ async function main() {
   lines.push('# GKD 全站动态订阅检测报告');
   lines.push('');
   lines.push(`生成时间：${nowISO()}`);
+  lines.push(`版本：v${RELEASE_VERSION}（订阅 version ${version}）`);
   lines.push('');
   lines.push('## 一、本周源发现与自动降级');
   lines.push('');
@@ -320,11 +322,13 @@ async function main() {
   writeFile(PATHS.baseline, JSON.stringify(newBaseline, null, 2));
   writeFile(PATHS.changed, JSON.stringify({
     date: today(),
+    releaseVersion: RELEASE_VERSION,
+    releaseVersionChanged,
     outputVersion: OUTPUT_VERSION,
     outputVersionChanged,
     isFirstRun,
     baselineReset: isBaselineReset,
-    changed: outputVersionChanged || isFirstRun || isBaselineReset || newUnique.length > 0 || discovery.newSources.length > 0 || discovery.droppedSources.length > 0 ||
+    changed: releaseVersionChanged || outputVersionChanged || isFirstRun || isBaselineReset || newUnique.length > 0 || discovery.newSources.length > 0 || discovery.droppedSources.length > 0 ||
       sources.some(s => changes[s.key].added.length || changes[s.key].removed.length),
     newUnique: newUnique.length,
     consolidated: preciseResult.consolidatedCount,

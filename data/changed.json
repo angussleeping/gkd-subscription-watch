@@ -1,8 +1,8 @@
 {
   "date": "2026-11-27",
   "releaseVersion": "2.2",
-  "releaseVersionChanged": true,
-  "outputVersion": 3,
+  "releaseVersionChanged": false,
+  "outputVersion": 4,
   "outputVersionChanged": true,
   "isFirstRun": false,
   "baselineReset": false,

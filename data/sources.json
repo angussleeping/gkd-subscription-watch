@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-27T03:11:37.853Z",
+  "generatedAt": "2026-11-27T04:04:22.033Z",
   "active": [
     {
       "key": "ganlin",
@@ -26,7 +26,7 @@
       "bytes": 556510,
       "score": 98,
       "failCount": 0,
-      "lastSeen": "2026-11-27T03:11:37.853Z"
+      "lastSeen": "2026-11-27T04:04:22.033Z"
     },
     {
       "key": "aoguai",
@@ -54,7 +54,7 @@
       "bytes": 293957,
       "score": 98,
       "failCount": 0,
-      "lastSeen": "2026-11-27T03:11:37.853Z"
+      "lastSeen": "2026-11-27T04:04:22.033Z"
     },
     {
       "key": "linarm",
@@ -70,7 +70,7 @@
       ],
       "origin": "search",
       "core": true,
-      "stars": 7711,
+      "stars": 7713,
       "pushedAt": "2026-11-27T01:50:37Z",
       "repoUrl": "https://github.com/Lin-arm/GKD_subscription",
       "description": "用于安卓 GKD 的第三方订阅规则 (👻Fork版)",
@@ -82,7 +82,7 @@
       "bytes": 1291827,
       "score": 90,
       "failCount": 0,
-      "lastSeen": "2026-11-27T03:11:37.853Z"
+      "lastSeen": "2026-11-27T04:04:22.033Z"
     },
     {
       "key": "ckylinmc",
@@ -108,7 +108,7 @@
       "bytes": 20028,
       "score": 38,
       "failCount": 0,
-      "lastSeen": "2026-11-27T03:11:37.853Z"
+      "lastSeen": "2026-11-27T04:04:22.033Z"
     },
     {
       "key": "gh_mengnianxiaoyao_gkd_subscription",
@@ -136,7 +136,7 @@
       "bytes": 540237,
       "score": 87,
       "failCount": 0,
-      "lastSeen": "2026-11-27T03:11:37.853Z"
+      "lastSeen": "2026-11-27T04:04:22.033Z"
     },
     {
       "key": "gh_lin_arm_gkd_rules",
@@ -164,7 +164,7 @@
       "bytes": 147777,
       "score": 78,
       "failCount": 0,
-      "lastSeen": "2026-11-27T03:11:37.853Z"
+      "lastSeen": "2026-11-27T04:04:22.033Z"
     },
     {
       "key": "gh_aisouler_gkd_subscription",
@@ -192,7 +192,7 @@
       "bytes": 117292,
       "score": 75,
       "failCount": 0,
-      "lastSeen": "2026-11-27T03:11:37.853Z"
+      "lastSeen": "2026-11-27T04:04:22.033Z"
     },
     {
       "key": "gh_oklazeno_gkd_subscription",
@@ -220,7 +220,7 @@
       "bytes": 1590529,
       "score": 65,
       "failCount": 0,
-      "lastSeen": "2026-11-27T03:11:37.853Z"
+      "lastSeen": "2026-11-27T04:04:22.033Z"
     },
     {
       "key": "gh_yanmuq_muqi_gkd",
@@ -248,7 +248,7 @@
       "bytes": 53821,
       "score": 65,
       "failCount": 0,
-      "lastSeen": "2026-11-27T03:11:37.853Z"
+      "lastSeen": "2026-11-27T04:04:22.033Z"
     },
     {
       "key": "gh_mrlctate_gkd_mrlc",
@@ -276,7 +276,7 @@
       "bytes": 782878,
       "score": 62,
       "failCount": 0,
-      "lastSeen": "2026-11-27T03:11:37.853Z"
+      "lastSeen": "2026-11-27T04:04:22.033Z"
     },
     {
       "key": "gh_lenoreric_gk_lemon_d",
@@ -304,7 +304,7 @@
       "bytes": 8533,
       "score": 54,
       "failCount": 0,
-      "lastSeen": "2026-11-27T03:11:37.853Z"
+      "lastSeen": "2026-11-27T04:04:22.033Z"
     },
     {
       "key": "gh_cjy0812_ling033_gkd_rules",
@@ -332,7 +332,7 @@
       "bytes": 30872,
       "score": 53,
       "failCount": 0,
-      "lastSeen": "2026-11-27T03:11:37.853Z"
+      "lastSeen": "2026-11-27T04:04:22.033Z"
     }
   ],
   "inactive": [

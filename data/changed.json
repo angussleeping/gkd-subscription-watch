@@ -1,47 +1,45 @@
 {
-  "date": "2026-11-25",
+  "date": "2026-11-27",
+  "outputVersion": 2,
+  "outputVersionChanged": true,
   "isFirstRun": false,
-  "baselineReset": true,
+  "baselineReset": false,
   "changed": true,
-  "newUnique": 0,
-  "newSources": [
+  "newUnique": 20,
+  "consolidated": 1235,
+  "newSources": [],
+  "droppedSources": [
     {
-      "name": "CKylinMC 补充规则",
-      "fullName": "CKylinMC/gkd-rule-extras",
-      "groups": 37,
-      "unique": 37,
-      "score": 38
+      "name": "timyang2005/gkd-merged-subscription",
+      "reason": "181 天无更新"
     }
   ],
-  "droppedSources": [],
   "added": {
     "ganlin": 0,
     "aoguai": 0,
-    "linarm": 0,
+    "linarm": 18,
     "ckylinmc": 0,
     "gh_mengnianxiaoyao_gkd_subscription": 0,
-    "gh_lin_arm_gkd_rules": 0,
+    "gh_lin_arm_gkd_rules": 2,
     "gh_aisouler_gkd_subscription": 0,
     "gh_oklazeno_gkd_subscription": 0,
     "gh_yanmuq_muqi_gkd": 0,
     "gh_mrlctate_gkd_mrlc": 0,
     "gh_lenoreric_gk_lemon_d": 0,
-    "gh_cjy0812_ling033_gkd_rules": 0,
-    "gh_timyang2005_gkd_merged_subscription": 0
+    "gh_cjy0812_ling033_gkd_rules": 0
   },
   "removed": {
     "ganlin": 0,
     "aoguai": 0,
-    "linarm": 0,
+    "linarm": 8,
     "ckylinmc": 0,
     "gh_mengnianxiaoyao_gkd_subscription": 0,
-    "gh_lin_arm_gkd_rules": 0,
+    "gh_lin_arm_gkd_rules": 2,
     "gh_aisouler_gkd_subscription": 0,
     "gh_oklazeno_gkd_subscription": 0,
     "gh_yanmuq_muqi_gkd": 0,
     "gh_mrlctate_gkd_mrlc": 0,
     "gh_lenoreric_gk_lemon_d": 0,
-    "gh_cjy0812_ling033_gkd_rules": 0,
-    "gh_timyang2005_gkd_merged_subscription": 0
+    "gh_cjy0812_ling033_gkd_rules": 0
   }
 }
